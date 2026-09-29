@@ -16,6 +16,10 @@ __pycache__/
 _agents/logs/
 starter-kits/**/data/
 
+# Internal / Local-only notes (not pushed to public GitHub)
+*.local.md
+docs/internal_competitive_battlecard.local.md
+
 # Never commit credentials or environment secrets
 .env
 .env.*

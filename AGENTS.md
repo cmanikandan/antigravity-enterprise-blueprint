@@ -1,6 +1,6 @@
 # Enterprise Engineering & Multi-Agent Workspace Standards (`AGENTS.md`)
 
-This file is automatically discovered by Google Antigravity's hierarchical directory-walk engine (from the repository root down to the active working directory, up to `100 KB`) and provides zero-friction compatibility for teams migrating from Cursor, Claude Code, or OpenAI Codex.
+This file is automatically discovered by Google Antigravity's hierarchical directory-walk engine (from the repository root down to the active working directory, up to `100 KB`) to standardize enterprise context, security boundaries, and multi-agent workflows across all teams.
 
 ---
 

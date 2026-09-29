@@ -126,4 +126,4 @@ Run structured 90-minute hands-on workshops across business and engineering team
 ### Phase 3: Autonomous Operations & Legacy Tool Consolidation (Days 61–90)
 - Deploy Tier 4 `sidecar.json` daemons across operations teams for automated incident triage.
 - Enforce `hooks-scripts/gate.py` in CI/CD and local repositories.
-- Consolidate redundant point coding tools (Cursor, unmanaged CLI subscriptions) using side-by-side velocity and cost telemetry from **Developer Tool Metrics**.
+- Consolidate fragmented point tools and unmanaged CLI subscriptions using side-by-side velocity and cost telemetry from **Developer Tool Metrics**.

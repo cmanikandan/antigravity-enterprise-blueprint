@@ -39,7 +39,7 @@ REQUIRED_ARTIFACTS: list[str] = [
     "_agents/skills/cloud-architecture-readiness/references/cloud_resiliency_checklist.md",
     "docs/01_enterprise_governance_and_rollout.md",
     "docs/02_slash_commands_subagents_and_constructs_handbook.md",
-    "docs/03_cursor_claude_codex_displacement_battlecard.md",
+    "docs/03_antigravity_gemini_enterprise_value_proposition.md",
     "starter-kits/tier1-citizen-markdown/agents/ops-handover-copilot.md",
     "starter-kits/tier1-citizen-markdown/agents/contract-and-sla-risk-critic.md",
     "starter-kits/tier1-citizen-markdown/agents/talent-skill-matcher.md",
