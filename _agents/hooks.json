@@ -1,0 +1,50 @@
+{
+  "enterprise-security-and-quality-gate": {
+    "enabled": true,
+    "PreToolUse": [
+      {
+        "matcher": "run_command|write_to_file|replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ./hooks-scripts/gate.py --mode=pre-tool",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ./hooks-scripts/gate.py --mode=post-tool",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "python3 ./hooks-scripts/gate.py --mode=pre-invocation",
+        "timeout": 5
+      }
+    ],
+    "PostInvocation": [
+      {
+        "type": "command",
+        "command": "python3 ./hooks-scripts/gate.py --mode=post-invocation",
+        "timeout": 5
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "python3 ./hooks-scripts/gate.py --mode=stop-gate",
+        "timeout": 20
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+# Tier 2 Low-Code Agent Configuration (Product, Solutions & QA Analysts)
+agent_id: solution-architect-copilot
+version: "2026.1"
+supported_domains:
+  - Financial_Services
+  - Retail_Commerce
+  - Healthcare_LifeSciences
+  - Core_Platform_Engineering
+model_routing:
+  default_model: gemini-3.8-flash
+  thinking_level: medium
+  escalation_model: gemini-3.1-pro-preview
+  ui_mockup_model: gemini-3-pro-image-preview
+guardrails:
+  require_measurable_acceptance_criteria: true
+  block_pii_in_prompts: true

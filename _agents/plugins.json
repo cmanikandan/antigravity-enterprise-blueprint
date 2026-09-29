@@ -1,0 +1,10 @@
+{
+  "inherits": [],
+  "entries": [
+    {
+      "path": "starter-kits",
+      "include_only": ["tier2-enterprise-plugin"],
+      "exclude": ["experimental-.*"]
+    }
+  ]
+}

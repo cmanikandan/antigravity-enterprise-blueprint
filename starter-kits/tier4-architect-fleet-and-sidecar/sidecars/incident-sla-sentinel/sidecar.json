@@ -1,0 +1,11 @@
+{
+  "command": "python3",
+  "args": ["sentinel_sidecar.py"],
+  "restart_policy": "always",
+  "display_name": "Enterprise 24x7 Incident & SLA Sentinel",
+  "description": "Continuous SRE/Operations background sidecar that monitors P1/P2 incident queues, persists SLA state to ANTIGRAVITY_EXECUTABLE_DATA_DIR, and spawns autonomous RCA conversations via agentapi.",
+  "env": {
+    "INCIDENT_POLL_INTERVAL_SECONDS": "300",
+    "INCIDENT_DEFAULT_MODEL": "flash"
+  }
+}

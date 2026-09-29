@@ -1,0 +1,5 @@
+{
+  "title": "Enterprise Product, Architecture & QA Accelerator Plugin",
+  "description": "Distributable Antigravity plugin for Business Analysts, Product Managers, Solutions Architects, and QA Leads. Bundles project WBS estimation skills, Solution Architect agents, and approved MCP servers.",
+  "mcpServers": "./mcp_config.json"
+}

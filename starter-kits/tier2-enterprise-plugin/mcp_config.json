@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "gemini-api-docs": {
+      "command": "npx",
+      "args": ["-y", "@google/gemini-api-docs-mcp"],
+      "env": {
+        "ENTERPRISE_COMPLIANCE_MODE": "STRICT"
+      }
+    },
+    "enterprise-architecture-catalog": {
+      "command": "python3",
+      "args": ["-m", "http.server", "--bind", "127.0.0.1"],
+      "disabled": true,
+      "description": "Template entry for internal Reference Architecture & Estimator MCP server (governed by Admin Console MCP JSON override)."
+    }
+  }
+}

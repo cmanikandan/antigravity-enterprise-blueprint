@@ -1,0 +1,14 @@
+{
+  "inherits": [],
+  "entries": [
+    {
+      "path": "_agents/skills",
+      "include_only": ["cloud-architecture-.*", "project-.*", "bigquery-.*"],
+      "exclude": ["experimental-.*", "deprecated-.*"]
+    },
+    {
+      "path": "starter-kits/tier2-enterprise-plugin/skills",
+      "exclude": ["deprecated-.*"]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "2026.1",
+  "organization": "Enterprise Architecture & SRE Standards",
+  "service_tiers": {
+    "MISSION_CRITICAL": {
+      "availability_slo": "99.99%",
+      "max_p99_latency_ms": 200,
+      "rto_minutes": 5,
+      "rpo_minutes": 0,
+      "deployment_topology": "Multi-Region Active-Active",
+      "approval_gate": "Principal Architect + SRE Lead"
+    },
+    "BUSINESS_CORE": {
+      "availability_slo": "99.9%",
+      "max_p99_latency_ms": 500,
+      "rto_minutes": 30,
+      "rpo_minutes": 5,
+      "deployment_topology": "Regional Multi-Zone HA",
+      "approval_gate": "Engineering Tech Lead Sign-off"
+    },
+    "INTERNAL_TOOLING": {
+      "availability_slo": "99.5%",
+      "max_p99_latency_ms": 1500,
+      "rto_minutes": 240,
+      "rpo_minutes": 60,
+      "deployment_topology": "Regional Standard",
+      "approval_gate": "Automated CI Gate"
+    }
+  }
+}
