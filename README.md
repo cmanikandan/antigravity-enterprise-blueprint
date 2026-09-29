@@ -25,6 +25,22 @@ This repository is a complete, ready-to-deploy **Enterprise Enablement & Referen
 
 ---
 
+## How Gemini Enterprise Pooled Quota Powers Google Antigravity
+
+Per the official [Gemini Enterprise Quotas and Overages](https://docs.cloud.google.com/gemini/enterprise/docs/quotas-and-overages) and [AI Developer Tools Overview](https://docs.cloud.google.com/gemini/enterprise/docs/ai-developer-tools-overview) documentation, **Gemini Enterprise Standard** (`$10/user/mo` credit) and **Gemini Enterprise Plus** (`$15/user/mo` credit) pool AI developer tool quota across all users in the same edition within a Google Cloud project and location (`Global`, `US`, or `EU`) on a **rolling 7-day cycle**:
+
+$$\text{Weekly Shared Project Pool} = \left(\frac{\text{Monthly Per-User Credit}}{4}\right) \times N_{\text{Licensed Seats}}$$
+
+```mermaid
+flowchart LR
+    A["<b>All Edition Seats in GCP Project</b><br/>• Standard: $2.50 / wk / seat<br/>• Plus: $3.75 / wk / seat"] --> B["<b>Rolling 7-Day Shared Quota Pool</b><br/>• Resets every 7 days from first prompt<br/>• Covers Antigravity 2.0, CLI, IDEs & Android Studio<br/>• No per-user cap; light users offset power engineers"]
+    B --> C["<b>FinOps Spend Control</b><br/>• Default Overages OFF ($0 surprise bill)<br/>• Optional Overages ON + Monthly Cap"]
+```
+
+See [**Section 2.1 of `docs/03_antigravity_gemini_enterprise_value_proposition.md`**](docs/03_antigravity_gemini_enterprise_value_proposition.md#21-visual-architecture-how-gemini-enterprise-pooled-quota-works-in-google-antigravity) and [**Section 3.1 of `docs/01_enterprise_governance_and_rollout.md`**](docs/01_enterprise_governance_and_rollout.md#31-weekly-pooled-quota-formula--visual-architecture) for the full multi-persona diagram, official quota scope table, and IAM custom role reservation strategy.
+
+---
+
 ## Quick Verification Commands
 
 Run the deterministic validation suite to verify all Python scripts, lifecycle hooks, skill bundles, and pooled quota modeling:

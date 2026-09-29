@@ -21,6 +21,72 @@ Organizations scaling AI-native workflows across both technical and business fun
 | **Model Fleet & Local NPU Zero-Egress Option** | **Gemini 3.8/3.7 Flash**, **Gemini 3.1 Pro**, **Nano Banana Pro/2** (UI mockups), **Gemini Omni 1.1 Flash** (video), **Deep Research**, plus **local Gemma 4 (`LiteRTAgentConfig`)** for privacy-sensitive workflows. | Matches every task to the optimal reasoning effort tier or runs 100% on-device at $0.00 cloud quota cost. |
 | **Real-Time Telemetry & Chargeback** | **Developer Tool Metrics** in GCP Console refreshed every **5–15 minutes** (active users, requests, tokens, latency, errors) with Cloud Logging export. | Provides live adoption visibility and departmental FinOps attribution. |
 
+### 2.1 Visual Architecture: How Gemini Enterprise Pooled Quota Works in Google Antigravity
+
+Grounded in the official [Gemini Enterprise Quotas and Overages](https://docs.cloud.google.com/gemini/enterprise/docs/quotas-and-overages), [AI Developer Tools Overview](https://docs.cloud.google.com/gemini/enterprise/docs/ai-developer-tools-overview), and [View Pooled Quota Usage](https://docs.cloud.google.com/gemini/enterprise/docs/feature-usage) documentation, **Gemini Enterprise** eliminates rigid per-seat developer caps by pooling AI developer tool credits across all licensed users of the same edition within a Google Cloud project and location (`Global`, `US`, or `EU`).
+
+```mermaid
+flowchart TB
+    subgraph LIC["1. Gemini Enterprise Subscriptions (Per GCP Project & Location)"]
+        direction LR
+        S1["Business & Ops Seats<br/>(Standard: $10/mo | Plus: $15/mo)<br/>Contributes $2.50 or $3.75 / wk / seat"]
+        S2["Standard Engineering Seats<br/>(Standard: $10/mo | Plus: $15/mo)<br/>Contributes $2.50 or $3.75 / wk / seat"]
+        S3["Power Engineers & Architects<br/>(Standard: $10/mo | Plus: $15/mo)<br/>Contributes $2.50 or $3.75 / wk / seat"]
+    end
+
+    subgraph POOL["2. Rolling 7-Day Shared AI Developer Tools Quota Pool"]
+        direction TB
+        FORMULA["<b>Project Weekly Pool = (Monthly Credit ÷ 4) × Total Licensed Seats</b><br/>• Standard Edition Pool: <b>$2.50 × N seats / 7 days</b> (e.g., 100 seats = $250/wk | 1,000 seats = $2,500/wk)<br/>• Plus Edition Pool: <b>$3.75 × N seats / 7 days</b> (e.g., 100 seats = $375/wk | 1,000 seats = $3,750/wk)<br/>• <b>Rolling 7-Day Reset:</b> Starts at first Antigravity prompt (e.g., Wed 2:00 PM PT → Next Wed 2:00 PM PT)<br/>• <b>No Individual Cap:</b> Any user in the edition draws from the shared pool until depleted (no weekly rollover)"]
+    end
+
+    subgraph TOOLS["3. AI Developer Tools Drawing from the Shared Pool"]
+        direction LR
+        T1["<b>Google Antigravity</b><br/>• Antigravity 2.0 Agentic IDE<br/>• Antigravity CLI<br/>• Parallel Git Worktree Subagents"]
+        T2["<b>Antigravity for IDEs</b><br/>• VS Code & JetBrains Extensions<br/>• Inline & Agentic Workflows"]
+        T3["<b>Android Studio</b><br/>• AI Coding, Debugging &<br/>  App Scaling Agents"]
+    end
+
+    subgraph DRAW["4. Dynamic Cross-Team Consumption (Worked 100-Seat Standard Pool = $250 / Week)"]
+        direction LR
+        U1["<b>40 Business / PMO Users</b><br/>Use Daily Assistant Pool (160/day)<br/>Antigravity Draw: <b>$0.00 / wk</b><br/><i>Contributes +$100/wk surplus</i>"]
+        U2["<b>45 Delivery & QA Engineers</b><br/>Daily Flash 3.8 Coding & Testing<br/>Antigravity Draw: <b>~$2.00 / wk each</b><br/><i>Total Draw: $90/wk</i>"]
+        U3["<b>15 Power Architects</b><br/>Worktree Fleets, /goal & Pro 3.1<br/>Antigravity Draw: <b>~$10.60 / wk each</b><br/><i>Total Draw: $160/wk (4.2x per-seat nominal!)</i>"]
+    end
+
+    subgraph GATE["5. Admin FinOps Boundary When Weekly Pool Reaches 100%"]
+        direction LR
+        G1["<b>Default: Overages OFF</b><br/>Hard stop when 7-day pool hits 100%<br/><b>$0.00 Unbudgeted Cloud Spend</b>"]
+        G2["<b>Optional: Overages ON + Spend Limit</b><br/>Continues at Agent Platform API rates<br/>Capped by <b>Project Monthly Spend Limit</b>"]
+    end
+
+    S1 & S2 & S3 --> POOL
+    POOL --> T1 & T2 & T3
+    T1 & T2 & T3 --> U1 & U2 & U3
+    U1 & U2 & U3 --> G1 & G2
+```
+
+#### Where Pooled Quota Applies Across Gemini Enterprise (Official Specification)
+
+Per [Google Cloud Quotas and Overages](https://docs.cloud.google.com/gemini/enterprise/docs/quotas-and-overages#feature-quotas), quota pooling operates at two scopes inside a Google Cloud project and location (`Global`, `US`, `EU`):
+
+| Quota Category | Included Tools & Capabilities | Gemini Enterprise Standard | Gemini Enterprise Plus | Pooling Boundary | Reset Schedule |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **AI Developer Tools** *(Invoiced Cloud Billing required)* | • **Google Antigravity** (`Antigravity 2.0` & `Antigravity CLI`)<br>• **Antigravity for IDEs**<br>• **Android Studio** | **$10 credit / user / mo**<br>*(Enforced as **$2.50 × seats** per 7-day pool)* | **$15 credit / user / mo**<br>*(Enforced as **$3.75 × seats** per 7-day pool)* | **Pooled across all users in the same edition** per project & location | **Every 7 days** starting from the timestamp of the first AI developer tool prompt in the project (e.g., Wed 2:00 PM PT → next Wed 2:00 PM PT). No weekly rollover. |
+| **Assistant & Conversational Search** | Enterprise Web Grounding & Workspace / Data Store Assistant | **160 queries / user / day** | **200 queries / user / day** | **Pooled across all users in the same edition** per project & location | **Daily** at midnight Pacific Time (PT) |
+| **No-Code Agent Building Tools** | Creating & running no-code Workflow Builder agents | **1 agent created / user / day** | **10 agents created / user / day** | **Pooled across all users in the same edition** per project & location | **Daily** at midnight Pacific Time (PT) |
+| **Deep Research** | Autonomous multi-step synthesis agent | **3 requests / user / day** | **10 requests / user / day** | **Pooled across all users in the same edition** per project & location | **Daily** at midnight Pacific Time (PT) |
+| **Multimodal Generation** | Image & Video generation | **5 images & 2 videos / user / day** | **10 images & 3 videos / user / day** | **Pooled across all users in the same edition** per project & location | **Daily** at midnight Pacific Time (PT) |
+| **Storage + Data Indexing** | Enterprise connector & RAG index storage | **30 GiB / user** | **75 GiB / user** | **Pooled across ALL editions combined** per project & location | Continuous allocation (prorated overage at $5/GiB/mo if exceeded) |
+
+#### Why Project-Level Pooling Is a Decisive Advantage Over Siloed Per-Seat Quotas
+
+| Architectural Scenario | Traditional Siloed Per-Seat Quota Model | **Google Antigravity + Gemini Enterprise Pooled Quota** |
+| :--- | :--- | :--- |
+| **Light or Non-Coding Seat Under-Utilization** | Unused monthly tokens on light users or PM/operations seats are **stranded and wasted** at month-end; cannot be transferred to busy engineers. | Every licensed seat in the edition automatically increases the project's shared weekly pool (`+$2.50/wk` Standard or `+$3.75/wk` Plus). Light users' unused developer credits are **100% available to active developers**. |
+| **Power-User Sprint Bottlenecks** | A senior engineer running multi-file refactors hits an individual seat rate limit mid-sprint and is blocked or forced onto expensive per-user add-ons. | **Individual usage is never capped at the per-user nominal amount.** Power engineers can consume `4x–10x` the average per-seat credit from the shared edition pool without interruption. |
+| **Reserving Non-Developer Credits for Engineering** | Requires purchasing separate developer-only point-tool licenses on top of enterprise AI seats. | Per [AI Developer Tools IAM Controls](https://docs.cloud.google.com/gemini/enterprise/docs/ai-developer-tools-overview#before-you-begin), admins can assign a custom role without AI developer tool permissions to business users in the same project—keeping **100% of their seats' Antigravity credits reserved for software engineers**. |
+| **Zero-Ticket Elasticity & Spend Governance** | Adding seats or raising limits requires manual vendor contract amendments or per-user billing changes. | Quotas **scale automatically** with license count (including free-trial seats). Admins monitor real-time percentage consumption in **Gemini Enterprise > Usage & Spending** and keep `Overages` **OFF** by default (or **ON** with a strict monthly cap). |
+
 ---
 
 ## 3. Domain Adoption Playbooks

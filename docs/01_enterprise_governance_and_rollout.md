@@ -69,20 +69,45 @@ flowchart TB
 
 Understanding how Gemini Enterprise funds Antigravity usage allows organizations to scale agent adoption across thousands of employees without surprise token overages.
 
-### 3.1 Weekly Pooled Quota Formula
+### 3.1 Weekly Pooled Quota Formula & Visual Architecture
 
-$$\text{Weekly Project Quota Pool} = \left(\frac{\text{Monthly Included Quota per Seat}}{4}\right) \times N_{\text{Licensed Seats}}$$
+Per the official [Gemini Enterprise Quotas and Overages](https://docs.cloud.google.com/gemini/enterprise/docs/quotas-and-overages), [AI Developer Tools Overview](https://docs.cloud.google.com/gemini/enterprise/docs/ai-developer-tools-overview), and [View Pooled Quota Usage](https://docs.cloud.google.com/gemini/enterprise/docs/feature-usage) documentation, AI developer tools credits (**Google Antigravity 2.0**, **Antigravity CLI**, **Antigravity for IDEs**, and **Android Studio**) are pooled across all users in the **same edition** within a **Google Cloud project and location** (`Global`, `US`, or `EU`) on a **rolling seven-day basis**:
 
-| License Edition | License Price | Monthly Antigravity Quota / Seat | Weekly Quota / Seat | **Weekly Project Pool Formula ($N$ Seats)** | **Example: Per 1,000 Seats** |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Gemini Enterprise Standard** | $30 / user / mo | $10.00 / user / mo | $2.50 / user / wk | **$\$2.50 \times N$ / week** | **$2,500 / week** ($10,000 / mo) |
-| **Gemini Enterprise Plus** | $45+ / user / mo | $15.00 / user / mo | $3.75 / user / wk | **$\$3.75 \times N$ / week** | **$3,750 / week** ($15,000 / mo) |
+$$\text{Weekly Project Quota Pool} = \left(\frac{\text{Monthly Included Credit per Seat}}{4}\right) \times N_{\text{Licensed Seats (including Free-Trial Seats)}}$$
+
+| License Edition | License Price | Included AI Developer Tools Credit / Seat | Rolling 7-Day Pool Contribution / Seat | **Weekly Project Pool Formula ($N$ Seats)** | **Example: 100 Seats** | **Example: 1,000 Seats** |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Gemini Enterprise Standard** | $30 / user / mo | $10.00 / user / mo | $2.50 / user / 7 days | **$\$2.50 \times N$ / 7 days** | **$250 / week** | **$2,500 / week** ($10,000 / mo) |
+| **Gemini Enterprise Plus** | $45+ / user / mo | $15.00 / user / mo | $3.75 / user / 7 days | **$\$3.75 \times N$ / 7 days** | **$375 / week** | **$3,750 / week** ($15,000 / mo) |
+| **Gemini Enterprise Pay-as-you-go** | $0 seat fee *(Invoiced Billing)* | Unpooled (Pay for actual usage) | Unpooled | Billed at [Agent Platform API prices](https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing#cost-of-building-and-deploying-ai-models-in-agent-platform) | Pure consumption | Pure consumption |
+
+```mermaid
+flowchart LR
+    subgraph SILO["Traditional Siloed Per-Seat Quota (Wasted Capacity & Artificial Bottlenecks)"]
+        direction TB
+        A1["Light User A<br/>Uses $1 / $10 credit<br/><b>$9 Stranded & Lost</b>"]
+        A2["Light User B<br/>Uses $0 / $10 credit<br/><b>$10 Stranded & Lost</b>"]
+        A3["Power Engineer C<br/>Needs $22 in Sprint Week<br/><b>BLOCKED at $10 Cap!</b>"]
+    end
+
+    subgraph POOLED["Google Antigravity + Gemini Enterprise Project-Level Pooled Quota"]
+        direction TB
+        B1["Light User A ($2.50/wk)"] --> POOL["<b>Shared Project Edition Pool</b><br/>10 Standard Seats = <b>$25.00 / 7 Days</b><br/>1,000 Standard Seats = <b>$2,500 / 7 Days</b><br/><i>Resets every 7 days from first prompt</i>"]
+        B2["Light User B ($2.50/wk)"] --> POOL
+        B3["8 Team Members ($20.00/wk)"] --> POOL
+        POOL --> DRAW1["Light Users A & B draw <b>$1.00 total</b>"]
+        POOL --> DRAW2["8 Team Members draw <b>$12.00 total</b>"]
+        POOL --> DRAW3["Power Engineer C draws <b>$12.00 (4.8x per-seat avg)</b><br/><b>Zero Throttling & Zero Overage Bill!</b>"]
+    end
+```
 
 > [!IMPORTANT]
-> **Three Critical FinOps Rules for Enterprise Leaders**:
-> 1. **Project-Level Pooling**: Quota is **not** locked to individual users. Unused quota from lighter business/operations users automatically subsidizes heavy multi-agent worktree runs by software engineers and architects sharing the same Google Cloud project.
-> 2. **Weekly Reset with Zero Rollover**: The pool resets every 7 days. Unused weekly quota expires at the end of the week—giving enablement teams a clear weekly KPI to drive adoption across under-utilized departments.
-> 3. **Hard Stop vs. Controlled Pay-As-You-Go Burst**: By default, `Pay-as-you-go usage above quota` is **OFF** (zero unbudgeted cloud spend). Enable Pay-As-You-Go with a strict **Monthly Spending Limit** only on dedicated high-intensity engineering projects.
+> **Five Grounded Rules from Official Google Cloud Documentation**:
+> 1. **Per-Edition, Per-Project, Per-Location Pooling**: Feature quotas (including **AI developer tools**, **Assistant** at `160–200 queries/day`, **Deep Research** at `3–10/day`, and **No-code agent creation** at `1–10/day`) are pooled across all users holding the **same edition** within a Google Cloud project and location. (**Storage + data indexing** at `30 GiB` Standard / `75 GiB` Plus is pooled across *all* editions combined in that project and location.)
+> 2. **Rolling 7-Day Reset Clock (Anchored to First Prompt)**: Unlike Assistant/Search quotas (which reset daily at midnight PT), the **AI developer tools quota resets every seven days starting from when a prompt or request is first sent to an AI developer tool** in the project. For example, if the first Antigravity prompt is sent on **Wednesday at 2:00 PM PT**, the 7-day cycle runs until the **following Wednesday at 2:00 PM PT**. Unused weekly quota does not roll over.
+> 3. **Automatic License Scaling (Zero Quota-Increase Tickets)**: Unlike standard Google Cloud infrastructure quotas, Gemini Enterprise feature quotas automatically scale up or down as you assign or add licenses (including free-trial seats) in your subscription.
+> 4. **IAM Custom Role Strategy to Dedicate Pool Capacity to Engineers**: Per [AI Developer Tools Required Roles](https://docs.cloud.google.com/gemini/enterprise/docs/ai-developer-tools-overview#before-you-begin), users require `roles/discoveryengine.agentspaceUser` (`Gemini Enterprise User`) to access Antigravity, while `roles/discoveryengine.agentspaceAdmin` (`Gemini Enterprise Admin`) is required to configure settings and view **Gemini Enterprise > Usage & Spending** metrics (`monitoring.timeSeries.list` and `serviceconsumermanagement.quota.get`). Administrators can assign a **custom IAM role** that omits AI developer tools permissions to non-engineering seats in the same project—allowing those seats to use Assistant/Search while **contributing 100% of their weekly AI developer tool credits to the software engineering pool**.
+> 5. **Hard Stop (`Overages: OFF`) vs. Controlled Burst (`Overages: ON`)**: By default, usage stops when the 7-day shared pool reaches 100% (zero surprise cloud billing). On invoiced Cloud Billing accounts with paid subscriptions, administrators can enable **Overages** and set a **Monthly Spending Limit** to allow seamless continuation at Agent Platform API rates.
 
 ### 3.2 Workload-to-Model Effort Routing Matrix
 
