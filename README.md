@@ -37,7 +37,9 @@ flowchart LR
     B --> C["<b>FinOps Spend Control</b><br/>• Default Overages OFF ($0 surprise bill)<br/>• Optional Overages ON + Monthly Cap"]
 ```
 
-See [**Section 2.1 of `docs/03_antigravity_gemini_enterprise_value_proposition.md`**](docs/03_antigravity_gemini_enterprise_value_proposition.md#21-visual-architecture-how-gemini-enterprise-pooled-quota-works-in-google-antigravity) and [**Section 3.1 of `docs/01_enterprise_governance_and_rollout.md`**](docs/01_enterprise_governance_and_rollout.md#31-weekly-pooled-quota-formula--visual-architecture) for the full multi-persona diagram, official quota scope table, and IAM custom role reservation strategy.
+- **Visual Pooled Quota Architecture & Worked Examples**: [**Section 2.1 of `docs/03_antigravity_gemini_enterprise_value_proposition.md`**](docs/03_antigravity_gemini_enterprise_value_proposition.md#21-visual-architecture-how-gemini-enterprise-pooled-quota-works-in-google-antigravity) & [**Section 3.1 of `docs/01_enterprise_governance_and_rollout.md`**](docs/01_enterprise_governance_and_rollout.md#31-weekly-pooled-quota-formula--visual-architecture)
+- **Where to View Tokenomics & Pooled Quota (User, Project & Org Levels) + Threshold Alerts**: [**Section 3.3 of `docs/01_enterprise_governance_and_rollout.md`**](docs/01_enterprise_governance_and_rollout.md#33-where-to-view-tokenomics--pooled-quota-usage-user-project--org-levels--threshold-alerts)
+- **Third-Party Identity Provider (IdP) Authentication (Okta, Microsoft Entra ID & OIDC/SAML via `BYOID / WIF`)**: [**Section 2.3 of `docs/01_enterprise_governance_and_rollout.md`**](docs/01_enterprise_governance_and_rollout.md#23-third-party-identity-provider-idp-authentication-okta-microsoft-entra-id--oidcsaml-byoid--wif)
 
 ---
 
