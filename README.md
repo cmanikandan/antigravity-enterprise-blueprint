@@ -1,5 +1,11 @@
 # Google Antigravity & Gemini Enterprise: Multi-Agent Engineering & Adoption Kit
 
+> [!IMPORTANT]
+> **Disclaimer — Unofficial Personal Repository**: This is an **unofficial, personal GitHub repository** created for educational and reference purposes. All architectural patterns, code samples, and commentary reflect the **author's personal views** and do not represent official Google or Google Cloud documentation, product roadmaps, or formal guidance. Because cloud features, quotas, and pricing evolve rapidly, always refer to the **official Google Cloud and Google Antigravity documentation** as the authoritative source of truth:
+> - [Google Cloud Gemini Enterprise Documentation](https://docs.cloud.google.com/gemini/enterprise/docs/overview)
+> - [Gemini Enterprise Quotas, Overages & AI Developer Tools](https://docs.cloud.google.com/gemini/enterprise/docs/quotas-and-overages)
+> - [Google Antigravity Official Documentation](https://antigravity.google/docs)
+
 This repository is a complete, ready-to-deploy **Enterprise Enablement & Reference Implementation Kit** for organizations adopting **Google Antigravity** and **Gemini Enterprise**. It provides a practical blueprint to:
 1. **Empower Every Employee to Build & Orchestrate Agents**: Scale from simple no-code Markdown agents for business & operations teams to autonomous multi-agent fleets and 24x7 background sidecars for principal engineers.
 2. **Integrate Seamlessly with Gemini Enterprise**: Maximize shared weekly pooled quota across **Gemini Enterprise Standard & Plus** seats, enforce centralized Google Cloud IAM and Admin Console guardrails, and route workloads across the **Gemini 3.x** and **Gemma 4** model families.

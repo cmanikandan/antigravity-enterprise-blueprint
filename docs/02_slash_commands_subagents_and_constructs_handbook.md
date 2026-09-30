@@ -1,5 +1,8 @@
 # Antigravity 2.0 Slash Commands, Subagents & Real-World Constructs Handbook
 
+> [!NOTE]
+> **Disclaimer**: This document is part of an **unofficial, personal GitHub repository** and reflects the author's personal views. For authoritative and up-to-date product specifications, commands, and SDK references, always refer to the official [Google Cloud Gemini Enterprise Documentation](https://docs.cloud.google.com/gemini/enterprise/docs/overview) and [Google Antigravity Documentation](https://antigravity.google/docs).
+
 This handbook serves as the daily operational reference for all enterprise users—from non-technical business and operations staff to principal engineers. Every command and construct below includes **copy-pasteable enterprise examples**.
 
 ---

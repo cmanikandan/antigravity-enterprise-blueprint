@@ -1,5 +1,8 @@
 # Enterprise Governance, Gemini Enterprise Quota Economics & Rollout Playbook
 
+> [!NOTE]
+> **Disclaimer**: This document is part of an **unofficial, personal GitHub repository** and reflects the author's personal views. For authoritative and up-to-date product specifications, quotas, pricing, and identity configuration, always refer to the official [Google Cloud Gemini Enterprise Documentation](https://docs.cloud.google.com/gemini/enterprise/docs/overview) and [Google Antigravity Documentation](https://antigravity.google/docs).
+
 ## 1. Executive Objective: Multi-Agent Creation per Employee & Seamless Gemini Enterprise Integration
 
 Modern enterprises span a wide spectrum of technical fluency—from non-technical operations, finance, procurement, and PMO staff to product analysts, full-stack developers, and principal systems architects.

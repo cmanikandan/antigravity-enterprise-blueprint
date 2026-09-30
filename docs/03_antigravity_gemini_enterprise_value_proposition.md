@@ -1,5 +1,8 @@
 # Google Antigravity + Gemini Enterprise: Enterprise Value Proposition & Domain Playbooks
 
+> [!NOTE]
+> **Disclaimer**: This document is part of an **unofficial, personal GitHub repository** and reflects the author's personal views. For authoritative and up-to-date product capabilities, quotas, and pricing, always refer to the official [Google Cloud Gemini Enterprise Documentation](https://docs.cloud.google.com/gemini/enterprise/docs/overview) and [Google Antigravity Documentation](https://antigravity.google/docs).
+
 ## 1. Executive Summary for Engineering Leaders, FinOps & Security Architects
 
 Organizations scaling AI-native workflows across both technical and business functions require three foundational capabilities that **Google Antigravity + Gemini Enterprise** deliver natively:
