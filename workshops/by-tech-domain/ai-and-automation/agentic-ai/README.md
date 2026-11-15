@@ -1,6 +1,6 @@
 # Workshop: Agentic AI & Multi-Agent Systems — SDK, Sandboxes & Guardrails `[Level 300–400]`
 
-![Issue to PR Sandbox](../../../../assets/headfirst/06_issue_to_pr_sandbox.jpg)
+![Issue to PR Sandbox](../../../../assets/visuals/06_issue_to_pr_sandbox.jpg)
 
 ## Workshop Overview
 
@@ -25,7 +25,7 @@ At PulsePay, **Priya** (Principal Architect) and **Sam** (QA & Cyber Lead) have 
 - Unattended cloud sandboxes (`antigravity-preview-09-2026`) must open GitHub PRs **without ever placing a raw OAuth token inside `os.environ`**.
 - Raw customer merchant logs must have PII scrubbed locally at **`\$0.00` cloud cost** before escalating to cloud reasoning models.
 
-![End-to-End SDLC Storyboard](../../../../assets/headfirst/04_sdlc_storyboard.jpg)
+![End-to-End SDLC Storyboard](../../../../assets/visuals/04_sdlc_storyboard.jpg)
 
 ### 💬 Fireside Chat: `os.environ["GITHUB_TOKEN"]` vs. Wire-Level Credentials API
 

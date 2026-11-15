@@ -33,7 +33,7 @@ In single-thread CLI tools, engineers try to brute-force Job A by opening three 
 
 Burn this visual distinction into your engineering instincts:
 
-![Swarm Live Peer Collaboration vs Run-Workflow Deterministic Python Fan-Out](../../assets/headfirst/05_swarm_vs_workflow.jpg)
+![Swarm Live Peer Collaboration vs Run-Workflow Deterministic Python Fan-Out](../../assets/visuals/05_swarm_vs_workflow.jpg)
 
 | Decision Dimension | **`/swarm`** (`@[plugin:swarm]`) — *Live Peer Collaboration* | **`/run-workflow`** *(v2.32+)* — *Deterministic Python Fan-Out* |
 | :--- | :--- | :--- |

@@ -1,6 +1,6 @@
 # Workshop: Application Development, Bug Forensics & Fleet Maintenance `[Level 200–400]`
 
-![Swarm vs Workflow](../../../../assets/headfirst/05_swarm_vs_workflow.jpg)
+![Swarm vs Workflow](../../../../assets/visuals/05_swarm_vs_workflow.jpg)
 
 ## Workshop Overview
 
@@ -25,7 +25,7 @@ Greenfield apps are easy. **Production maintenance is where real engineering hap
 
 Instead of playing whack-a-mole one terminal tab at a time, **Alex**, **Priya**, and **Sam** use Google Antigravity's full toolkit—matching the right Gemini 4 brain and multi-agent topology to every phase of the application lifecycle!
 
-![Two-Axis Cockpit](../../../../assets/headfirst/03_two_axis_cockpit.jpg)
+![Two-Axis Cockpit](../../../../assets/visuals/03_two_axis_cockpit.jpg)
 
 ### 💬 Fireside Chat: `/swarm` Peer Mesh vs. `/run-workflow` Map-Reduce
 

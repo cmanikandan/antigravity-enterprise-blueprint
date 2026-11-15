@@ -1,9 +1,9 @@
-# Head First Google Antigravity Workshops: Your Hands-On Flight Simulator
+# Google Antigravity Workshops: Your Hands-On Flight Simulator
 
 > [!NOTE]
 > **Unofficial Enablement & Workshop Guide**: This curriculum is a community and enterprise field blueprint for engineering teams adopting Google Antigravity and Gemini 4. For official product documentation, release notes, and platform specifications, always consult **[https://antigravity.google/docs](https://antigravity.google/docs)**.
 
-![Workshops & Labs Map](../assets/headfirst/09_workshops_and_labs_map.jpg)
+![Workshops & Labs Map](../assets/visuals/09_workshops_and_labs_map.jpg)
 
 Welcome to the **hands-on wing** of the *Antigravity Enterprise Blueprint*!
 
@@ -26,7 +26,7 @@ Not every teammate needs the same starting line on Monday morning. We separate *
 
 ```mermaid
 flowchart TB
-    L1["<b>Level 1: Shared Mental Models (Read First — No Coding Required)</b><br/>• <a href='../README.md'>Main Head First Blueprint (Chapters 1–8)</a><br/>• <a href='../docs/01_enterprise_governance_and_rollout.md'>Enterprise Governance</a> & <a href='../docs/02_slash_commands_subagents_and_constructs_handbook.md'>Slash Commands Handbook</a>"]
+    L1["<b>Level 1: Shared Mental Models (Read First — No Coding Required)</b><br/>• <a href='../README.md'>Mastering Google Antigravity Guide (Chapters 1–8)</a><br/>• <a href='../docs/01_enterprise_governance_and_rollout.md'>Enterprise Governance</a> & <a href='../docs/02_slash_commands_subagents_and_constructs_handbook.md'>Slash Commands Handbook</a>"]
     L2R["<b>Level 2A: Workshops by Tech Role</b><br/>• <a href='by-tech-role/development/feature-development/README.md'>Feature Development (90–120m)</a><br/>• <a href='by-tech-role/development/app-maintenance/README.md'>App Development & Maintenance (4–6h)</a>"]
     L2D["<b>Level 2B: Workshops by Tech Domain</b><br/>• <a href='by-tech-domain/ai-and-automation/agentic-ai/README.md'>Agentic AI & Multi-Agent SDK (2–4h)</a><br/>• <a href='by-tech-domain/ai-and-automation/agentic-sdlc/README.md'>End-to-End Agentic SDLC (Full Day)</a>"]
     L3["<b>Level 3: Atomic Hands-On Labs (<code>../labs/</code>) & Sandbox App</b><br/>9 self-contained modules + <a href='../labs/sandbox-apps/pulsepay-legacy-ledger/'><code>pulsepay-legacy-ledger</code></a> runnable target"]

@@ -1,6 +1,6 @@
 # Workshop: The End-to-End Agentic SDLC — Self-Healing QA & Autonomous Delivery at Scale `[Level 200–400]`
 
-![End-to-End SDLC Storyboard](../../../../assets/headfirst/04_sdlc_storyboard.jpg)
+![End-to-End SDLC Storyboard](../../../../assets/visuals/04_sdlc_storyboard.jpg)
 
 ## Workshop Overview
 
@@ -86,7 +86,7 @@ Run **`/context`** in the CLI and inspect the four zones (`⛁` Startup Overhead
 
 ## Session 3 (`90 min`) — Self-Healing QA, Browser E2E & Autonomous Issue-to-PR
 
-![Issue to PR Sandbox](../../../../assets/headfirst/06_issue_to_pr_sandbox.jpg)
+![Issue to PR Sandbox](../../../../assets/visuals/06_issue_to_pr_sandbox.jpg)
 
 ### 3A: Event-Driven SDLC Hooks & Loop Safeguards (`10 min`)
 

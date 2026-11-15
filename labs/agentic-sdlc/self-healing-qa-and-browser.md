@@ -17,7 +17,7 @@
 
 ## 🎬 Stage 1 — The PulsePay Story & Broken Status Quo
 
-Look back at Panel 4 of our storyboard ([`04_sdlc_storyboard.jpg`](../../assets/headfirst/04_sdlc_storyboard.jpg)): **Sam** is standing in front of the green **`SHIP IT!`** flag holding **two giant shields**—a golden **`/browser E2E`** shield and a silver **`hooks.json + Carbon Audit`** shield, backed by **`/goal`** and **`/boost`**.
+Look back at Panel 4 of our storyboard ([`04_sdlc_storyboard.jpg`](../../assets/visuals/04_sdlc_storyboard.jpg)): **Sam** is standing in front of the green **`SHIP IT!`** flag holding **two giant shields**—a golden **`/browser E2E`** shield and a silver **`hooks.json + Carbon Audit`** shield, backed by **`/goal`** and **`/boost`**.
 
 Why does Sam carry *four* different verification tools instead of just running `pytest` once in chat? Because in production payment engineering, **four distinct failure modes slip past ordinary chat prompts**:
 

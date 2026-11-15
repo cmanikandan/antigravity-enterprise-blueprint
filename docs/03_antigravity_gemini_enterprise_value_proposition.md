@@ -1,4 +1,4 @@
-# Google Antigravity + Gemini Enterprise: Enterprise Value Proposition & Domain Playbooks (`Head First` Executive & Architect Guide)
+# Google Antigravity + Gemini Enterprise: Enterprise Value Proposition & Domain Playbooks (Executive & Architect Field Guide)
 
 > [!NOTE]
 > **Unofficial Guide Disclaimer**: This document is part of an **unofficial, personal GitHub repository** and reflects the author's personal views and engineering mental models. It is not affiliated with or endorsed by Google. For authoritative and up-to-date product capabilities, quotas, and pricing, always refer to the official [Google Cloud Gemini Enterprise Documentation](https://docs.cloud.google.com/gemini/enterprise/docs/overview) and [Google Antigravity Documentation](https://antigravity.google/docs).
@@ -29,7 +29,7 @@ Why are engineering VPs, CISOs, and FinOps leaders consolidating fragmented poin
 
 ### 2.1 Visual Architecture: How Gemini Enterprise Pooled Quota Works in Google Antigravity
 
-![Tokenomics and the Rolling 7-Day Shared Quota Pool](../assets/headfirst/08_tokenomics_quota_pool.jpg)
+![Tokenomics and the Rolling 7-Day Shared Quota Pool](../assets/visuals/08_tokenomics_quota_pool.jpg)
 
 Grounded in the official [Gemini Enterprise Quotas and Overages](https://docs.cloud.google.com/gemini/enterprise/docs/quotas-and-overages), [AI Developer Tools Overview](https://docs.cloud.google.com/gemini/enterprise/docs/ai-developer-tools-overview), and [View Pooled Quota Usage](https://docs.cloud.google.com/gemini/enterprise/docs/feature-usage) documentation, **Gemini Enterprise** eliminates rigid per-seat developer caps by pooling AI developer tool credits across all licensed users of the same edition within a Google Cloud project and location (`Global`, `US`, or `EU`).
 

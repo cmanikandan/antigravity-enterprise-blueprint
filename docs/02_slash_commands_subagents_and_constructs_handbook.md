@@ -1,4 +1,4 @@
-# Google Antigravity (v2.32) Slash Commands, Multi-Agent Orchestrators, Remote Sandboxes & Constructs Handbook (`Head First` Field Manual)
+# Google Antigravity (v2.32) Slash Commands, Multi-Agent Orchestrators, Remote Sandboxes & Constructs Handbook (Brain-Friendly Field Manual)
 
 > [!IMPORTANT]
 > **Unofficial Guide Disclaimer**: This handbook is an **unofficial, community-authored reference** reflecting the author's personal engineering notes and opinions. It is not affiliated with or endorsed by Google. Because features, flags, models, and plan availability evolve rapidly, always consult the **[Official Google Antigravity Documentation](https://antigravity.google/docs)** and **[Google Cloud Gemini Enterprise Documentation](https://docs.cloud.google.com/gemini/enterprise/docs/overview)** for the authoritative final word.
@@ -11,7 +11,7 @@ This handbook is the complete **Level 200 → Level 400 operational field manual
 
 Why do some engineers burn 5x their weekly quota fighting a single monolithic chat window while the engineer at the next desk ships a 12-file cross-stack feature in 25 minutes? Because great Antigravity engineers never confuse **Axis 1 (The Brain)** with **Axis 2 (The Squad)**:
 
-![The Two-Axis Mental Model: Brain x Squad](../assets/headfirst/03_two_axis_cockpit.jpg)
+![The Two-Axis Mental Model: Brain x Squad](../assets/visuals/03_two_axis_cockpit.jpg)
 
 - **Axis 1 — Pick Your Brain (`/model` + `/effort`)**: Controls *how each individual agent thinks* (`gemini-4-hydrogen` with `low`/`medium`/`high`/`xhigh`, `gemini-4-argon`, `gemini-4-carbon`, or bidirectional `Orchestrator`).
 - **Axis 2 — Pick Your Squad (Execution Mode / Slash Command)**: Controls *how one or many agents coordinate, isolate files, loop on tests, and challenge each other* (`1-on-1`, `Subagents`, `/goal`, `/boost`, `/run-workflow`, `/swarm`, or `/teamwork`).
@@ -45,7 +45,7 @@ Why do some engineers burn 5x their weekly quota fighting a single monolithic ch
 
 ### 1.3 Context Hygiene, Model Control, Customizations & FinOps Commands
 
-![Context Engineering: Don't Stuff Your 1M-Token Garage](../assets/headfirst/07_context_garage.jpg)
+![Context Engineering: Don't Stuff Your 1M-Token Garage](../assets/visuals/07_context_garage.jpg)
 
 | Command | Surfaces | Operational Purpose & Pro Tip |
 | :--- | :--- | :--- |
@@ -107,7 +107,7 @@ Available in the Antigravity Desktop/Web App across all plans, `/generative_ui` 
 
 ### 2.4 `/swarm` (`@[plugin:swarm]`) — Peer-Coordinated Multi-Agent Mesh (Level 300 → 400)
 
-![Swarm Live Peer Collaboration vs Run-Workflow Deterministic Python Fan-Out](../assets/headfirst/05_swarm_vs_workflow.jpg)
+![Swarm Live Peer Collaboration vs Run-Workflow Deterministic Python Fan-Out](../assets/visuals/05_swarm_vs_workflow.jpg)
 
 When your task naturally splits into parallel tracks that **need to share discoveries mid-flight** (e.g., changing a shared TypeScript API contract while updating 4 consumers, or racing 4 root-cause hypotheses in parallel), reach for **`/swarm`**.
 

@@ -1,6 +1,6 @@
 # 🛠️ Legacy Migration, Debugging & Modernization Labs (`labs/migration-modernization/`)
 
-![Swarm vs Workflow Decision Guide](../../assets/headfirst/05_swarm_vs_workflow.jpg)
+![Swarm vs Workflow Decision Guide](../../assets/visuals/05_swarm_vs_workflow.jpg)
 
 ## Welcome to the Brownfield Trenches at PulsePay
 

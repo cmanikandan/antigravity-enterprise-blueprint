@@ -1,6 +1,6 @@
 # Workshop: Full-Stack Feature Velocity — From Ambiguous PRD to Verified Release `[Level 200–300]`
 
-![Two-Axis Cockpit](../../../../assets/headfirst/03_two_axis_cockpit.jpg)
+![Two-Axis Cockpit](../../../../assets/visuals/03_two_axis_cockpit.jpg)
 
 ## Workshop Overview
 
@@ -87,7 +87,7 @@ Before writing production UI code, switch to (or stay in) the Antigravity App an
 
 ## Lab 2 — Full-Stack Implementation: `Orchestrator` vs. Parallel `/swarm` (`45 min`)
 
-![Swarm vs Workflow](../../../../assets/headfirst/05_swarm_vs_workflow.jpg)
+![Swarm vs Workflow](../../../../assets/visuals/05_swarm_vs_workflow.jpg)
 
 - **Atomic Lab Deep-Dive**: [Parallel Full-Stack Swarm](../../../../labs/agentic-sdlc/parallel-fullstack-swarm.md)
 - **Recommended Brain × Squad**:

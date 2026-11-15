@@ -1,9 +1,9 @@
-# 🧠 Hands-On Engineering Labs Catalog (Head First Edition)
+# 🧠 Hands-On Engineering Labs Catalog
 
 > [!NOTE]
 > **Unofficial Practitioner Field Guide Disclaimer**: This hands-on lab catalog is an unofficial, community-crafted enterprise enablement guide built for engineering teams adopting Google Antigravity and Gemini Enterprise. Product surfaces, model identifiers, and pricing tiers evolve rapidly — always consult the official documentation at https://antigravity.google/docs for the latest canonical reference.
 
-![Workshops & Labs Map](../assets/headfirst/09_workshops_and_labs_map.jpg)
+![Workshops & Labs Map](../assets/visuals/09_workshops_and_labs_map.jpg)
 
 ---
 

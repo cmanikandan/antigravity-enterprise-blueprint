@@ -28,7 +28,7 @@ In the old single-thread local CLI world, your team faced an ugly dilemma:
 
 **Welcome to Level 400 Autonomous Software Engineering**: resolving Issue `#418` inside an ephemeral, network-restricted Linux sandbox VM where **zero raw secrets ever enter `os.environ`**, **`gemini-4-hydrogen`** writes the failing reproduction test + minimal fix, and **`gemini-4-carbon`** performs a read-only CWE security gate before opening the Pull Request—while Alex's laptop stays shut!
 
-![Zero-Laptop SWE: GitHub Issue to Remote Sandbox to Final PR](../../assets/headfirst/06_issue_to_pr_sandbox.jpg)
+![Zero-Laptop SWE: GitHub Issue to Remote Sandbox to Final PR](../../assets/visuals/06_issue_to_pr_sandbox.jpg)
 
 ---
 

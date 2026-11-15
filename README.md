@@ -1,10 +1,10 @@
-# Head First Google Antigravity: A Brain-Friendly Guide to Agentic Software Engineering (Level 200 → 400)
+# Mastering Google Antigravity: A Brain-Friendly Guide to Agentic Software Engineering (Level 200 → 400)
 
-![Head First Google Antigravity Cover](assets/headfirst/00_book_cover.jpg)
+![Mastering Google Antigravity Cover](assets/visuals/00_book_cover.jpg)
 
 > [!IMPORTANT]
 > **Unofficial Field Guide Disclaimer — Read This Before Your First Sip of Coffee!**
-> This book, course, and hands-on lab repository is an **unofficial, community-authored guide** created for educational purposes. Every cartoon, story, mental model, and opinion reflects the **author's personal views**—not official Google, Google Cloud, or O'Reilly Media documentation. Because AI models, slash commands, pricing, and enterprise quotas move fast, **always check the official Google documentation for the final word**:
+> This book, course, and hands-on lab repository is an **unofficial, community-authored guide** created for educational purposes. Every cartoon, story, mental model, and opinion reflects the **author's personal views**—not official Google or Google Cloud documentation. Because AI models, slash commands, pricing, and enterprise quotas move fast, **always check the official Google documentation for the final word**:
 > - **[Google Antigravity Official Documentation](https://antigravity.google/docs)** *(Slash Commands, `/swarm`, `/run-workflow`, Remote Agents, CLI & Changelog)*
 > - **[Google Cloud Gemini Enterprise Documentation](https://docs.cloud.google.com/gemini/enterprise/docs/overview)** *(IAM Governance, `BYOID/WIF` SSO, Pooled Quotas & Overages)*
 > - **[Google AI & Vertex AI Official Pricing](https://ai.google.dev/pricing)** *(Authoritative Model Cards & Token Billing)*
@@ -41,7 +41,7 @@ Because **your brain is wired to ignore dry bullet lists.** To your evolutionary
 
 ## Chapter 1 `[Level 200]` — Escape from Single-Thread Purgatory: 5 Surfaces, 1 Shared Brain
 
-![Old Single-Thread CLI Bottleneck vs. Antigravity 5 Surfaces & 1 Shared Brain](assets/headfirst/01_five_surfaces_vs_cli.jpg)
+![Old Single-Thread CLI Bottleneck vs. Antigravity 5 Surfaces & 1 Shared Brain](assets/visuals/01_five_surfaces_vs_cli.jpg)
 
 **Friday, 4:15 PM at PulsePay.**
 **Alex** (Staff Engineer) is trying to ship *Instant Merchant Refunds* before boarding his commuter train. He has four separate terminal tabs running a popular single-thread CLI coding agent, a half-read PRD open in Google Docs in Chrome, and two `git stash` piles he's already forgotten about. At 4:42 PM, he shuts his laptop lid to sprint for the train—**instantly freezing every running local process mid-test.**
@@ -82,7 +82,7 @@ Antigravity inspects `.claude/`, `.codex/`, and `.cursor/`, converts them into p
 
 ## Chapter 2 `[Level 200–300]` — Meet the Elements: Gemini 4 Hydrogen, Argon, Carbon & `Orchestrator`
 
-![The Periodic Table of Gemini 4 Brains](assets/headfirst/02_periodic_table_brains.jpg)
+![The Periodic Table of Gemini 4 Brains](assets/visuals/02_periodic_table_brains.jpg)
 
 Gone are the days of squinting at cryptic decimal soup (`2.5-pro-exp-0827-thinking-preview`—*bless you!*). In late 2026, Google organized **Gemini 4** around three crystal-clear elements—each sharing a **1,048,576-token unified context window** and **95% implicit cached-input discount**, yet tuned for a totally different job on your squad:
 
@@ -130,14 +130,14 @@ Three engineers at PulsePay each run a 20-turn task:
 
 ## Chapter 3 `[Level 200–300]` — The Two-Axis Cockpit: Don't Confuse the Brain with the Squad!
 
-![The Two-Axis Mental Model: Brain Dial x 7-Position Squad Gearshift](assets/headfirst/03_two_axis_cockpit.jpg)
+![The Two-Axis Mental Model: Brain Dial x 7-Position Squad Gearshift](assets/visuals/03_two_axis_cockpit.jpg)
 
 Look closely at the cockpit sketch above. If you remember **one** mental model from this entire book, make it this yellow sticky note:
 
 > **💡 Never confuse Axis 1 (`Who is thinking?`) with Axis 2 (`How are agents organized?`).**
 > Switching `/model` changes the **IQ, speed, and price tag of one brain**. Invoking `/swarm`, `/run-workflow`, `/boost`, `/goal`, or `/teamwork` changes the **org chart, communication rules, and workspace isolation of an entire squad!**
 
-![/swarm Live Peer Collaboration vs. /run-workflow Deterministic Python Fan-Out](assets/headfirst/05_swarm_vs_workflow.jpg)
+![/swarm Live Peer Collaboration vs. /run-workflow Deterministic Python Fan-Out](assets/visuals/05_swarm_vs_workflow.jpg)
 
 ### 🧩 Who Am I? *(The 7-Squad Masquerade Puzzle)*
 Read each first-person clue below and guess which **Axis 2 Squad** is speaking before peeking!
@@ -164,7 +164,7 @@ Read each first-person clue below and guess which **Axis 2 Squad** is speaking b
 
 ## Chapter 4 `[Level 200–400]` — A Day in the Life at PulsePay: The End-to-End Agentic SDLC
 
-![End-to-End Agentic SDLC 4-Stage Storyboard](assets/headfirst/04_sdlc_storyboard.jpg)
+![End-to-End Agentic SDLC 4-Stage Storyboard](assets/visuals/04_sdlc_storyboard.jpg)
 
 Let's watch **Maya (PM)**, **Priya (Architect)**, **Alex (Dev Lead)**, and **Sam (QA & Cyber)** ship **PulsePay Instant Refund Guard** (auto-approving refunds under `\$500`, velocity-scoring `\$500+` refunds in Redis, and giving Ops a live override console) from a blank page on Monday morning to a verified release by Tuesday afternoon.
 
@@ -250,7 +250,7 @@ Priya's [`AGENTS.md`](AGENTS.md) requires **4 mandatory magnets** whenever a par
 
 ## Chapter 5 `[Level 400]` — Look Ma, Laptop Closed! GitHub Issue → Remote Sandbox → Final PR
 
-![Zero-Laptop SWE: GitHub Issue -> Managed Linux Sandbox VM -> Verified Pull Request](assets/headfirst/06_issue_to_pr_sandbox.jpg)
+![Zero-Laptop SWE: GitHub Issue -> Managed Linux Sandbox VM -> Verified Pull Request](assets/visuals/06_issue_to_pr_sandbox.jpg)
 
 **6:48 PM on the Caltrain.**
 PagerDuty buzzes on Alex's phone: GitHub Issue `#418` just landed (*"Dual-header HMAC webhook rotation rejects valid transitional signatures during zero-downtime key rollover"*). Alex's MacBook Pro is dead in his backpack.
@@ -291,7 +291,7 @@ Building an internal Slack `/fix-ticket` bot or automated CVE factory? Wire **Ge
 
 ## Chapter 6 `[Level 300–400]` — Don't Stuff Your 1M-Token Garage: Context Engineering Mastery
 
-![Context Engineering: Poisoned Monolith Garage vs. Clean /context Workbench](assets/headfirst/07_context_garage.jpg)
+![Context Engineering: Poisoned Monolith Garage vs. Clean /context Workbench](assets/visuals/07_context_garage.jpg)
 
 Every Gemini 4 model gives you a **1,048,576-token context window**. And what is the very first thing developers do when handed a 10-car garage? **They pack 9 cars of rusty lawnmowers, 40 raw log dumps, and 12 unused MCP server schemas onto the floor—then wonder why it takes 15 seconds just to find a screwdriver!**
 
@@ -320,7 +320,7 @@ Type **`/context`** in the Antigravity CLI to see a live visual token bar of you
 
 ## Chapter 7 `[Level 300–400]` — The 95% Cache Turbo & The 7-Day Olympic Pool: Tokenomics & FinOps
 
-![Tokenomics & The Rolling 7-Day Shared Quota Pool](assets/headfirst/08_tokenomics_quota_pool.jpg)
+![Tokenomics & The Rolling 7-Day Shared Quota Pool](assets/visuals/08_tokenomics_quota_pool.jpg)
 
  Sam (PulsePay's FinOps & Security Lead) used to dread AI coding rollouts: half the company's per-seat licenses sat unused on PM laptops, while top engineers hit hard rate-limit walls every Thursday afternoon. Let's look at the exact math that turned Sam into Antigravity's biggest fan.
 
@@ -369,7 +369,7 @@ $$\text{Weekly Shared Project Pool} = \left(\frac{\text{Monthly Included Credit 
 
 ## Chapter 8 `[Level 200–400]` — Hands-On Workshops, Engineering Labs & Pocket Cheat Sheet
 
-![Hands-On Workshops & Engineering Labs Map](assets/headfirst/09_workshops_and_labs_map.jpg)
+![Hands-On Workshops & Engineering Labs Map](assets/visuals/09_workshops_and_labs_map.jpg)
 
 Reading builds mental models—**doing wires your fingers.** We built a complete, self-contained **Role & Domain Workshop Curriculum** plus **9 Atomic Hands-On Labs** (backed by a real runnable legacy ledger & contract-bug sandbox app right inside [`labs/sandbox-apps/pulsepay-legacy-ledger/`](labs/sandbox-apps/pulsepay-legacy-ledger/)!).
 

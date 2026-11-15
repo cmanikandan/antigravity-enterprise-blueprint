@@ -1,4 +1,4 @@
-# Enterprise Governance, Gemini Enterprise Quota Economics & Rollout Playbook (`Head First` Field Guide)
+# Enterprise Governance, Gemini Enterprise Quota Economics & Rollout Playbook (Brain-Friendly Field Guide)
 
 > [!NOTE]
 > **Unofficial Guide Disclaimer**: This document is part of an **unofficial, personal GitHub repository** and reflects the author's personal engineering views and mental models. It is not affiliated with or endorsed by Google. For authoritative and up-to-date product specifications, quotas, pricing, and identity configuration, always refer to the official [Google Cloud Gemini Enterprise Documentation](https://docs.cloud.google.com/gemini/enterprise/docs/overview) and [Google Antigravity Documentation](https://antigravity.google/docs).
@@ -184,7 +184,7 @@ Understanding how Gemini Enterprise funds Antigravity usage allows organizations
 
 ### 3.1 Weekly Pooled Quota Formula & Visual Architecture
 
-![Tokenomics and the Rolling 7-Day Shared Quota Pool](../assets/headfirst/08_tokenomics_quota_pool.jpg)
+![Tokenomics and the Rolling 7-Day Shared Quota Pool](../assets/visuals/08_tokenomics_quota_pool.jpg)
 
 Per the official [Gemini Enterprise Quotas and Overages](https://docs.cloud.google.com/gemini/enterprise/docs/quotas-and-overages), [AI Developer Tools Overview](https://docs.cloud.google.com/gemini/enterprise/docs/ai-developer-tools-overview), and [View Pooled Quota Usage](https://docs.cloud.google.com/gemini/enterprise/docs/feature-usage) documentation, AI developer tools credits (**Google Antigravity 2.0**, **Antigravity CLI**, **Antigravity for IDEs**, and **Android Studio**) are pooled across all users in the **same edition** within a **Google Cloud project and location** (`Global`, `US`, or `EU`) on a **rolling seven-day basis**:
 

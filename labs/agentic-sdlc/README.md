@@ -8,7 +8,7 @@ Welcome to the **End-to-End Agentic Software Development Lifecycle (SDLC)** lab 
 
 Most AI coding tutorials hand you a toy "FizzBuzz" prompt, clap when a single file compiles, and call it a day. **Real enterprise software engineering doesn't look like that.** Real engineering starts with a messy product idea, collides with legacy settlement schemas, spans backend + frontend + tests simultaneously, faces strict CWE security audits, and often starts from a GitHub Issue filed at 6:45 PM after everyone has closed their laptops.
 
-![End-to-End Agentic SDLC: From Blank PRD to Verified Release](../../assets/headfirst/04_sdlc_storyboard.jpg)
+![End-to-End Agentic SDLC: From Blank PRD to Verified Release](../../assets/visuals/04_sdlc_storyboard.jpg)
 
 ---
 
@@ -40,7 +40,7 @@ You can run these four labs sequentially as a complete **half-day team bootcamp 
 
 ## How Every Lab Works: The Brain-Friendly 5-Stage Loop
 
-Every lab in this track follows the same repeatable **5-Stage Head First Loop** so your team builds muscle memory instead of memorizing trivia:
+Every lab in this track follows the same repeatable **5-Stage Agentic Engineering Loop** so your team builds muscle memory instead of memorizing trivia:
 
 ```mermaid
 flowchart LR
@@ -75,7 +75,7 @@ flowchart LR
 
 ## Companion Reference Guides
 
-- **Book Home**: [`../../README.md`](../../README.md) (*Head First Google Antigravity — Chapters 1–8*)
+- **Book Home**: [`../../README.md`](../../README.md) (*Mastering Google Antigravity — Chapters 1–8*)
 - **Slash Commands & Orchestrators Field Manual**: [`../../docs/02_slash_commands_subagents_and_constructs_handbook.md`](../../docs/02_slash_commands_subagents_and_constructs_handbook.md)
 - **Enterprise Governance, Okta/Entra WIF & Pooled Quota FinOps**: [`../../docs/01_enterprise_governance_and_rollout.md`](../../docs/01_enterprise_governance_and_rollout.md)
 - **Start Lab S1 Now →**: **[Lab S1 `[Level 200]`: PRD to Clickable Prototype](prd-to-clickable-prototype.md)**
