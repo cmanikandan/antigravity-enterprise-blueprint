@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Tier 4 Principal Architect Fleet: Nested Subagent Delegation & Pooled Quota Optimization.
+"""Tier 4 Principal Architect Fleet: Gemini 4 Carbon + Hydrogen Multi-Agent Orchestration.
 
-Demonstrates how a Principal Architect orchestrates a Lead Agent (`gemini-3.1-pro-preview`)
-that delegates specialized tasks to 3 Subagents (`gemini-3.8-flash` / `gemini-3.7-flash`)
-using `agent.as_tool()` and the 4-Part Subagent Prompt Contract:
-1. `legacy_ast_researcher` (Read-only codebase & database dependency discovery)
-2. `terraform_iac_builder` (Cloud Run + Spanner + VPC-SC module generator)
-3. `zero_trust_security_critic` (OWASP, IAM least-privilege & BigQuery FinOps verifier)
+Demonstrates how a Principal Architect orchestrates a Lead Planner (`gemini-4-carbon`)
+that delegates parallel execution and read-only research to `gemini-4-hydrogen` workers
+and adversarial security audits to `gemini-4-argon` / `gemini-4-carbon` using `agent.as_tool()`
+and the 4-Part Subagent Prompt Contract:
+1. `legacy_ast_researcher` (`gemini-4-hydrogen`, `low` effort — Read-only AST & SQL scan)
+2. `terraform_iac_builder` (`gemini-4-hydrogen`, `high` effort — Isolated Git Worktree IaC writer)
+3. `zero_trust_security_critic` (`gemini-4-carbon`, `high` effort — CWE chain & FinOps verifier)
 """
 
 from __future__ import annotations
@@ -20,14 +21,14 @@ from typing import Any
 FLEET_SPEC: dict[str, Any] = {
     "lead_orchestrator": {
         "name": "principal_modernization_orchestrator",
-        "model": "gemini-3.1-pro-preview",
+        "model": "gemini-4-carbon",
         "thinking_level": "high",
-        "role": "Coordinates multi-worktree modernization while keeping parent context lean.",
+        "role": "Plans milestones, enforces re-planning triggers, and keeps parent context lean (<8K tokens).",
     },
     "subagents": [
         {
             "name": "legacy_ast_researcher",
-            "model": "gemini-3.7-flash",
+            "model": "gemini-4-hydrogen",
             "thinking_level": "low",
             "workspace_mode": "inherit (Read-Only Local Mode)",
             "contract": {
@@ -39,8 +40,8 @@ FLEET_SPEC: dict[str, Any] = {
         },
         {
             "name": "terraform_iac_builder",
-            "model": "gemini-3.8-flash",
-            "thinking_level": "medium",
+            "model": "gemini-4-hydrogen",
+            "thinking_level": "high",
             "workspace_mode": "share (Isolated Git Worktree Mode)",
             "contract": {
                 "target_scope": "infra/terraform/modules/",
@@ -51,12 +52,12 @@ FLEET_SPEC: dict[str, Any] = {
         },
         {
             "name": "zero_trust_security_critic",
-            "model": "gemini-3.7-flash",
-            "thinking_level": "medium",
+            "model": "gemini-4-argon",
+            "thinking_level": "high",
             "workspace_mode": "inherit (Read-Only Local Mode)",
             "contract": {
                 "target_scope": "All modified .py, .tf, and .sql files",
-                "permitted_actions": "Read-only CWE/OWASP & FinOps verification",
+                "permitted_actions": "Read-only CWE/OWASP & BigQuery FinOps verification",
                 "no_file_modify_guard": True,
                 "output_format": "Severity Table (BLOCKER/HIGH/MEDIUM) with CWE IDs",
             },
@@ -93,10 +94,10 @@ def instantiate_nested_fleet(workspace_dir: str = ".") -> Any:
     return Agent(
         model=lead["model"],
         system_instruction=(
-            "You are the Principal Modernization Orchestrator. Never read >5 raw files "
-            "directly in your own context; delegate exploration to legacy_ast_researcher, "
-            "IaC authoring to terraform_iac_builder, and final verification to "
-            "zero_trust_security_critic. Reuse Idle subagents for follow-up questions."
+            "You are the Principal Modernization Orchestrator on Gemini 4 Carbon. "
+            "Never read >5 raw files directly in your own context; delegate exploration "
+            "to legacy_ast_researcher, IaC authoring to terraform_iac_builder, and final "
+            "verification to zero_trust_security_critic. Reuse Idle subagents for follow-ups."
         ),
         tools=subagent_tools,
         config=LocalAgentConfig(

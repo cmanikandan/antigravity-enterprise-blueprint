@@ -1,0 +1,143 @@
+# Reference GitHub Actions Workflow: Autonomous Issue -> Headless Antigravity CLI -> Pull Request
+# Copy to `.github/workflows/antigravity-issue-to-pr.yml` in your target repository.
+#
+# Security Architecture:
+# - Uses GitHub OIDC -> Google Cloud Workload Identity Federation (ZERO long-lived service account keys!)
+# - Runs Antigravity CLI (`agy`) in Headless Mode (`-p`) with `--sandbox` and `--json-schema`
+# - Enforces structured verification output before opening a Draft Pull Request via `gh pr create`
+
+name: "Antigravity Autonomous Issue-to-PR"
+
+on:
+  issues:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "GitHub Issue number to resolve autonomously"
+        required: true
+        type: number
+
+permissions:
+  id-token: write        # Required for keyless Google Cloud Workload Identity Federation
+  contents: write        # Required to push feature branch `agy/issue-<N>`
+  pull-requests: write   # Required to open the verified Pull Request
+  issues: write          # Required to post progress & PR link back to the Issue
+
+jobs:
+  resolve-issue-in-sandbox:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.label.name == 'agent-ready'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Keyless Auth to Google Cloud (Workload Identity Federation -> ADC)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_ANTIGRAVITY_SA }}
+          create_credentials_file: true
+
+      - name: Install Google Antigravity CLI (`agy`)
+        run: |
+          curl -fsSL https://antigravity.google/cli/install.sh | bash
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Fetch Issue Context & Prepare Isolated Feature Branch
+        id: issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUM: ${{ github.event.inputs.issue_number || github.event.issue.number }}
+        run: |
+          gh issue view "$ISSUE_NUM" --json number,title,body,labels > /tmp/issue.json
+          git checkout -b "agy/issue-${ISSUE_NUM}"
+          echo "number=${ISSUE_NUM}" >> "$GITHUB_OUTPUT"
+
+      - name: Run Antigravity Headless Agent (`gemini-4-hydrogen` + Structured JSON Schema)
+        id: agy_run
+        env:
+          AGY_ADC_AUTH: "true"
+          GOOGLE_CLOUD_QUOTA_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+          GOOGLE_CLOUD_LOCATION: "global"
+        run: |
+          ISSUE_PAYLOAD=$(cat /tmp/issue.json)
+
+          cat << 'EOF' > /tmp/pr_verdict.schema.json
+          {
+            "type": "object",
+            "properties": {
+              "pr_title": { "type": "string" },
+              "root_cause_summary": { "type": "string" },
+              "files_modified": { "type": "array", "items": { "type": "string" } },
+              "tests_added_or_updated": { "type": "array", "items": { "type": "string" } },
+              "test_command_exit_code": { "type": "integer" },
+              "ready_for_pr": { "type": "boolean" }
+            },
+            "required": [
+              "pr_title",
+              "root_cause_summary",
+              "files_modified",
+              "tests_added_or_updated",
+              "test_command_exit_code",
+              "ready_for_pr"
+            ]
+          }
+          EOF
+
+          agy -p "Resolve GitHub IssuePayload below following AGENTS.md.
+          1. Write or update a failing reproduction test first.
+          2. Implement the clean fix without weakening any existing assertions.
+          3. Run the full test suite until exit code is 0.
+          IssuePayload: ${ISSUE_PAYLOAD}" \
+            --model gemini-4-hydrogen \
+            --effort high \
+            --sandbox \
+            --dangerously-skip-permissions \
+            --output-format json \
+            --json-schema /tmp/pr_verdict.schema.json > /tmp/agy_result.json
+
+          jq '.usage' /tmp/agy_result.json
+          READY=$(jq -r '.structured_output.ready_for_pr' /tmp/agy_result.json)
+          EXIT_CODE=$(jq -r '.structured_output.test_command_exit_code' /tmp/agy_result.json)
+          if [ "$READY" != "true" ] || [ "$EXIT_CODE" != "0" ]; then
+            echo "::error::Agent verification gate did not pass cleanly."
+            exit 1
+          fi
+
+      - name: Commit Verified Changes & Open Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUM: ${{ steps.issue.outputs.number }}
+        run: |
+          PR_TITLE=$(jq -r '.structured_output.pr_title' /tmp/agy_result.json)
+          SUMMARY=$(jq -r '.structured_output.root_cause_summary' /tmp/agy_result.json)
+          TOKENS=$(jq -r '.usage.total_tokens' /tmp/agy_result.json)
+
+          git add -A
+          git commit -m "${PR_TITLE} (Fixes #${ISSUE_NUM})"
+          git push -u origin "agy/issue-${ISSUE_NUM}"
+
+          PR_URL=$(gh pr create \
+            --draft \
+            --title "${PR_TITLE}" \
+            --body "$(cat <<EOF
+          ## Summary
+          Automated resolution for #${ISSUE_NUM} generated inside an isolated GitHub Actions + Antigravity sandbox (\`gemini-4-hydrogen\`, \`--effort high\`).
+
+          ### Root Cause & Fix
+          ${SUMMARY}
+
+          ### Telemetry
+          - **Total Tokens**: \`${TOKENS}\`
+          - **Verification Schema Gate**: Passed (\`test_command_exit_code == 0\`)
+          EOF
+          )")
+
+          gh issue comment "$ISSUE_NUM" --body "Draft PR opened by Antigravity Sandbox Agent: ${PR_URL}"

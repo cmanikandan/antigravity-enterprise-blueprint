@@ -142,8 +142,8 @@ def handle_pre_invocation(payload: Dict[str, Any]) -> Dict[str, Any]:
             {
                 "ephemeralMessage": (
                     "[ENTERPRISE GOVERNANCE] Follow AGENTS.md and GEMINI.md: strictly separate "
-                    "verified facts from hypotheses, use Gemini 3.x models, and do not modify "
-                    "files outside the workspace."
+                    "verified facts from hypotheses, use approved Gemini 4 / 3.x models, and do not "
+                    "modify files outside the workspace."
                 )
             }
         ]

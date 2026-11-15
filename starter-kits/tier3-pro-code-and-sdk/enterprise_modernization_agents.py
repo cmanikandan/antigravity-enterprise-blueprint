@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Tier 3 Pro-Code Engineering Kit: Antigravity SDK + Gemini 3.x Interactions API.
+"""Tier 3 Pro-Code Engineering Kit: Antigravity SDK + Gemini 4 & 3.x Interactions API.
 
 Demonstrates how software, data, and platform engineers build and orchestrate:
-1. Local Cloud-Backed Agents (`gemini-3.8-flash` / `gemini-3.1-pro-preview`) with
+1. Local Cloud-Backed Agents (`gemini-4-hydrogen` / `gemini-4-argon`) with
    `BudgetConfig`, `ServiceTier.PRIORITY`, `policy`, and lifecycle `hooks`.
 2. On-Device Zero-Egress Agents (`gemma-4-26b-a4b-it`) using `LiteRTAgentConfig`
    for privacy-sensitive local data scrubbing ($0 cloud quota cost).
 3. Stateful Gemini Interactions API (`client.interactions.create`) with
-   `thinking_level="medium"`, `previous_interaction_id`, and `vertex=True` ADC binding.
+   `gemini-4-hydrogen` (`thinking_level="high"` / `"xhigh"`), `previous_interaction_id`,
+   95% implicit context caching, and `vertex=True` ADC binding.
 
 Run `--dry-run` to validate all configurations deterministically without network calls.
 """
@@ -25,6 +26,7 @@ from typing import Any
 class EnterpriseModernizationBlueprint:
     project_domain: str
     primary_agent_model: str
+    architect_planner_model: str
     reviewer_subagent_model: str
     local_on_device_model: str
     vertex_enabled: bool
@@ -37,8 +39,9 @@ class EnterpriseModernizationBlueprint:
 def build_modernization_blueprint() -> EnterpriseModernizationBlueprint:
     return EnterpriseModernizationBlueprint(
         project_domain="core-payments-service-modernization",
-        primary_agent_model="gemini-3.8-flash",
-        reviewer_subagent_model="gemini-3.7-flash",
+        primary_agent_model="gemini-4-hydrogen",
+        architect_planner_model="gemini-4-argon",
+        reviewer_subagent_model="gemini-4-carbon",
         local_on_device_model="gemma-4-26b-a4b-it",
         vertex_enabled=True,
         max_tokens_budget=150_000,
@@ -74,8 +77,9 @@ def create_cloud_engineering_agent(workspace_dir: str = ".") -> Any:
     return Agent(
         model=bp.primary_agent_model,
         system_instruction=(
-            "You are a Senior Platform Modernization Engineer. Follow AGENTS.md, "
-            "delegate read-only discovery to the research subagent, and never use "
+            "You are a Senior Platform Modernization Engineer running on Gemini 4 Hydrogen. "
+            "Follow AGENTS.md, delegate read-only discovery to the research subagent, "
+            "escalate cross-subsystem security reviews to Gemini 4 Carbon, and never use "
             "deprecated Gemini 1.5/2.0/2.5 models."
         ),
         config=LocalAgentConfig(
@@ -110,21 +114,21 @@ def create_local_gemma4_scrubber(workspace_dir: str = ".") -> Any:
     )
 
 
-def run_stateful_gemini_interaction(project_id: str, location: str = "us-central1") -> Any:
-    """Demonstrates the latest google-genai Interactions API with vertex=True."""
+def run_stateful_gemini_interaction(project_id: str, location: str = "global") -> Any:
+    """Demonstrates the latest google-genai Interactions API with Gemini 4 Hydrogen."""
     from google import genai
 
     client = genai.Client(vertexai=True, project=project_id, location=location)
     turn1 = client.interactions.create(
-        model="gemini-3.8-flash",
+        model="gemini-4-hydrogen",
         input="Generate a Python dataclass for an ISO-20022 pacs.008 payment instruction.",
         config={
-            "thinking_config": {"thinking_level": "medium"},
+            "thinking_config": {"thinking_level": "high"},
             "system_instruction": "Adhere to enterprise PCI-DSS tokenization standards.",
         },
     )
     turn2 = client.interactions.create(
-        model="gemini-3.8-flash",
+        model="gemini-4-hydrogen",
         previous_interaction_id=turn1.id,
         input="Now add a pytest unit test verifying IBAN checksum validation.",
         config={"thinking_config": {"thinking_level": "low"}},

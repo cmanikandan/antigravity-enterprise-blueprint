@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Tier 4 Remote Sandbox (`RemoteAgentConfig`), Triggers & Deep Research Orchestrator.
+"""Tier 4 Remote Sandbox (`RemoteAgentConfig`), Managed Agents & Deep Research Orchestrator.
 
 Demonstrates how Principal Architects and Staff Engineers run:
-1. Ephemeral Remote Sandbox Agents (`RemoteAgentConfig`) with `agent.triggers.webhook()`
-   and `agent.triggers.cron()` for automated GitLab/GitHub PR governance.
-2. Autonomous Architecture & Competitive Deep Research (`deep-research-preview-04-2026`)
-   and Agentic Workflows (`antigravity-preview-05-2026`) via `client.agents.create`.
+1. Ephemeral Remote Sandbox Agents (`RemoteAgentConfig`) on `gemini-4-hydrogen` with
+   `agent.triggers.webhook()` and `agent.triggers.cron()` for automated GitLab/GitHub PR governance.
+2. Hosted Gemini Managed Agents (`antigravity-preview-09-2026`, powered by `gemini-4-hydrogen`
+   by default and configurable up to `gemini-4-carbon`) with the Wire-Level Credentials API
+   and Files API.
+3. Autonomous Architecture & Competitive Deep Research (`deep-research-preview-04-2026`)
+   via `client.agents.create`.
 """
 
 from __future__ import annotations
@@ -19,8 +22,10 @@ from typing import Any
 REMOTE_AND_RESEARCH_SPEC: dict[str, Any] = {
     "remote_sandbox_agent": {
         "name": "ephemeral-pr-sandbox-governor",
-        "model": "gemini-3.8-flash",
+        "model": "gemini-4-hydrogen",
+        "thinking_effort": "high",
         "config_type": "RemoteAgentConfig",
+        "credential_isolation": "Managed Agents Credentials API (wire-level proxy header injection)",
         "triggers": [
             {"type": "webhook", "path": "/webhooks/pull-request-opened"},
             {"type": "cron", "schedule": "0 2 * * 1-5", "description": "Nightly production readiness & drift scan"},
@@ -31,10 +36,12 @@ REMOTE_AND_RESEARCH_SPEC: dict[str, Any] = {
         "sdk_method": "client.agents.create",
         "use_case": "Regulatory, legacy stack & reference architecture dossier synthesis",
     },
-    "autonomous_coding_agent": {
-        "agent_id": "antigravity-preview-05-2026",
-        "sdk_method": "client.agents.create",
-        "use_case": "Multi-repository Java 8 to Java 21 Cloud Run migration waves",
+    "autonomous_coding_managed_agent": {
+        "agent_id": "antigravity-preview-09-2026",
+        "default_model": "gemini-4-hydrogen",
+        "escalation_model": "gemini-4-carbon",
+        "sdk_method": "client.interactions.create / client.agents.create",
+        "use_case": "Multi-repository Java 8 to Java 21 Cloud Run migration & Issue-to-PR sandboxes",
     },
 }
 
@@ -44,7 +51,7 @@ def build_remote_sandbox_agent(project_id: str) -> Any:
     from google.antigravity import Agent, RemoteAgentConfig
 
     agent = Agent(
-        model="gemini-3.8-flash",
+        model="gemini-4-hydrogen",
         system_instruction=(
             "Execute inside an isolated ephemeral cloud sandbox. Clone the target "
             "pull request branch, run verify_release_readiness.py and pytest, and post the "
@@ -61,7 +68,7 @@ def launch_deep_research_dossier(project_id: str, architecture_topic: str) -> An
     """Launches a background Deep Research job via google-genai client.agents.create."""
     from google import genai
 
-    client = genai.Client(vertexai=True, project=project_id, location="us-central1")
+    client = genai.Client(vertexai=True, project=project_id, location="global")
     return client.agents.create(
         model="deep-research-preview-04-2026",
         input=(
@@ -76,7 +83,7 @@ def main() -> int:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="Validate and print RemoteAgentConfig and Deep Research specifications",
+        help="Validate and print RemoteAgentConfig, Managed Agents, and Deep Research specifications",
     )
     args = parser.parse_args()
     if args.dry_run:

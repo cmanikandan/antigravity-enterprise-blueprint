@@ -1,7 +1,17 @@
-# Enterprise Governance, Gemini Enterprise Quota Economics & Rollout Playbook
+# Enterprise Governance, Gemini Enterprise Quota Economics & Rollout Playbook (`Head First` Field Guide)
 
 > [!NOTE]
-> **Disclaimer**: This document is part of an **unofficial, personal GitHub repository** and reflects the author's personal views. For authoritative and up-to-date product specifications, quotas, pricing, and identity configuration, always refer to the official [Google Cloud Gemini Enterprise Documentation](https://docs.cloud.google.com/gemini/enterprise/docs/overview) and [Google Antigravity Documentation](https://antigravity.google/docs).
+> **Unofficial Guide Disclaimer**: This document is part of an **unofficial, personal GitHub repository** and reflects the author's personal engineering views and mental models. It is not affiliated with or endorsed by Google. For authoritative and up-to-date product specifications, quotas, pricing, and identity configuration, always refer to the official [Google Cloud Gemini Enterprise Documentation](https://docs.cloud.google.com/gemini/enterprise/docs/overview) and [Google Antigravity Documentation](https://antigravity.google/docs).
+
+---
+
+## Why Your Brain Needs This Playbook First
+
+Picture **PulsePay** on Monday morning: **Maya** (PM) wants to stress-test PRDs in **Knowledge Work** layout, **Alex** (Tech Lead) wants to run 4-worker `/swarm` sprints, **Priya** (Principal Architect) wants Okta / Microsoft Entra ID single sign-on without consumer Gmail accounts, and **Sam** (Security & FinOps Lead) refuses to approve *anything* that could leak credentials, run `terraform destroy`, or trigger a surprise `$50,000` token bill at month-end.
+
+Most AI rollouts stall right there—caught between **Shadow AI chaos** (unmanaged personal CLI subscriptions) and **Security lockdown** (blocking developers from modern agentic workflows). This playbook shows how **Google Antigravity + Gemini Enterprise** gives every persona speed *and* zero-trust governance inside one shared Google Cloud control plane.
+
+---
 
 ## 1. Executive Objective: Multi-Agent Creation per Employee & Seamless Gemini Enterprise Integration
 
@@ -9,23 +19,23 @@ Modern enterprises span a wide spectrum of technical fluency—from non-technica
 
 To drive organization-wide adoption of **Google Antigravity** alongside active utilization of **Gemini Enterprise licenses**, this blueprint establishes a **Multi-Agent-Per-Employee Operating Model** where every employee builds and operates a personal portfolio of specialized agents:
 
-| Agent Archetype | Purpose | Primary Gemini 3.x Model |
+| Agent Archetype | Purpose | Primary Gemini 4 / 3.x Model |
 | :--- | :--- | :--- |
-| **Agent #1: Personal Role Copilot** | Automates daily individual cognitive toil (operational handovers, backlog hygiene, PR pre-flight checks, requirement extraction). | `gemini-3.8-flash` (`Low` / `Medium` thinking) |
-| **Agent #2: Domain / Project Specialist** | Grounded in a team's repository or business domain (`AGENTS.md` + `_agents/rules/*.md`), enforcing architecture standards, FinOps rules, and runbooks. | `gemini-3.8-flash` / `gemini-3.1-pro-preview` |
-| **Agent #3: Automated Quality, Security or Ops Critic** | Runs via custom subagent (`.agents/agents/*.md`), recurring `/schedule` cron, or background `sidecar.json` to audit code quality, security SLAs, or contractual risk. | `gemini-3.7-flash` / `gemini-3.5-flash-lite` |
+| **Agent #1: Personal Role Copilot** | Automates daily individual cognitive toil (PRD stress-testing in **Knowledge Work** layout, operational handovers, PR pre-flight checks, everyday coding). | `gemini-4-hydrogen` (`Medium` / `High`) or `gemini-3.8-flash` (`Low` / `Medium`) |
+| **Agent #2: Domain / Architecture Specialist** | Grounded in a team's repository or business domain ([`AGENTS.md`](../AGENTS.md) + `_agents/rules/*.md`), driving large refactors, `/swarm`, `/run-workflow`, and architecture blueprints. | `gemini-4-argon` (`High`) or `Orchestrator (Argon)` *(Pro/Ultra)* |
+| **Agent #3: Frontier Security Critic & Ops Sentinel** | Runs via `@verifier` in `/swarm`, `.agents/agents/*.md`, `/automation` (`CRON_TZ`), or `sidecar.json` for CWE security audits (`gemini-4-carbon`) and low-cost telemetry checks. | `gemini-4-carbon` (`High` security audit) + `gemini-3.5-flash-lite` (`Low` cron digest) |
 
 ---
 
 ## 2. Gemini Enterprise + Antigravity Admin Governance Architecture
 
-Unlike unmanaged consumer coding tools, Google Antigravity is governed centrally via the **Google Cloud Console (Gemini Enterprise -> Antigravity Admin Controls)**:
+Unlike unmanaged consumer coding tools, Google Antigravity is governed centrally via the **Google Cloud Console (`Gemini Enterprise → Antigravity Admin Controls`)**:
 
 ```mermaid
 flowchart TB
     subgraph GCP["Google Cloud Organization & Project Boundary"]
         IAM["IAM Roles<br/>businessaicode.admin / developer / viewer"]
-        ADMIN["Antigravity Admin Console<br/>- Sandboxed Terminal Execution: ON<br/>- Browser Subagent URL Denylist: ON<br/>- MCP Admin Override JSON: ON<br/>- Model Effort Tiers: Low/Med/High"]
+        ADMIN["Antigravity Admin Console<br/>- Sandboxed Terminal Execution: ON<br/>- Browser Subagent URL Denylist: ON<br/>- MCP Admin Override JSON: ON<br/>- Effort Tiers: Low / Med / High / Extra (xhigh)"]
         POOL["Weekly Pooled Quota Engine<br/>(Monthly Included Quota / 4) x Licensed Seats"]
         LOGS["Cloud Logging & Developer Tool Metrics<br/>5-15 Min Near-Real-Time Telemetry"]
     end
@@ -46,14 +56,14 @@ flowchart TB
 
 | IAM Role | Principal Group | Scope & Capabilities |
 | :--- | :--- | :--- |
-| `roles/businessaicode.admin` | Platform Engineering & Security Architects | Configure terminal OS sandboxing, browser URL allow/denylists, approved MCP servers, model effort levels (`Low`/`Medium`/`High`), and compliance logging. |
-| `roles/businessaicode.developer` | Licensed Employees Across All Tiers | Authenticate IDE/CLI via Google Cloud Project ID, invoke Gemini 3.x models, spawn subagents, and consume pooled project quota. |
+| `roles/businessaicode.admin` | Platform Engineering & Security Architects | Configure terminal OS sandboxing, browser URL allow/denylists, approved MCP servers, model effort levels (`Low`/`Medium`/`High`/`Extra`), and compliance logging. |
+| `roles/businessaicode.developer` | Licensed Employees Across All Tiers | Authenticate App/CLI/IDEs via Google Cloud Project ID (including ADC `v2.31.2+`), invoke Gemini 4 & 3.x models, spawn subagents, and consume pooled project quota. |
 | `roles/businessaicode.viewer` | Engineering Leadership & FinOps Teams | View **Developer Tool Metrics** (active seats, requests, tokens, error rates, latency) refreshed every **5–15 minutes**. |
 
-### 2.2 Five Mandatory Enterprise Security Controls (ISO27001 / SOC2 / HIPAA / PCI Readiness)
+### 2.2 Six Mandatory Enterprise Security & Network Controls (ISO27001 / SOC2 / HIPAA / PCI Readiness)
 
 1. **Terminal OS Sandbox Enforcement**:
-   - Enable `Execute terminal commands in sandbox` in the Admin Console.
+   - Enable `Execute terminal commands in sandbox` in the Admin Console (`--sandbox` in Headless CLI).
    - Restricts file system writes outside the workspace root and blocks unauthorized outbound network sockets unless explicitly approved.
 2. **Browser Subagent Governance**:
    - Set `Open URLs` to **Controlled by blocklist/allowlist**.
@@ -61,10 +71,18 @@ flowchart TB
 3. **Centralized MCP Registry Override**:
    - Toggle `Provide a custom JSON configuration` to **ON** in the Admin Console.
    - Injects a read-only, security-vetted MCP server registry onto every developer machine, preventing shadow MCP servers from exfiltrating sensitive data.
-4. **Compliance Audit Logging (`Include prompts and responses in logs`)**:
+4. **VPC Service Controls & Regional Private Service Connect (PSC)**:
+   - Route regional model traffic through Private Service Connect endpoints (`*.<location>.rep.googleapis.com`) inside VPC-SC perimeters so prompts, diffs, and tool outputs never traverse the public internet.
+5. **Compliance Audit Logging (`Include prompts and responses in logs`)**:
    - Enabled selectively for regulated projects so every prompt, tool call, and response is immutably written to Cloud Logging and exported to BigQuery for compliance audits.
-5. **Deterministic Local Hook Gates ([`_agents/hooks.json`](../_agents/hooks.json))**:
+6. **Deterministic Local Hook Gates ([`_agents/hooks.json`](../_agents/hooks.json))**:
    - Even if a developer runs in `Turbo` permission mode, `PreToolUse` hooks in [`hooks-scripts/gate.py`](../hooks-scripts/gate.py) deterministically deny destructive commands (`terraform destroy`, `rm -rf`, `DROP TABLE`) and block credential file edits before execution.
+
+> **🙋 There Are No Dumb Questions**
+>
+> **Q: *Wait—if an engineer flips `/permissions` to `Turbo` mode in their local repo, can the LLM talk its way past our security rules?***
+>
+> **A:** Never—as long as you put hard boundaries in **[`_agents/hooks.json`](../_agents/hooks.json) + [`gate.py`](../hooks-scripts/gate.py)** rather than relying on Markdown prose alone! `AGENTS.md` shapes *how the model plans*, whereas `PreToolUse` hooks execute in pure Python *outside* the LLM before bash or disk writes ever happen. Even in `Turbo` mode, `gate.py` returns `"decision": "deny"` on `terraform destroy` and `"decision": "force_ask"` on `git push` or `gcloud run deploy`!
 
 ### 2.3 Third-Party Identity Provider (IdP) Authentication: Okta, Microsoft Entra ID & OIDC/SAML (`BYOID / WIF`)
 
@@ -94,6 +112,9 @@ sequenceDiagram
     Dev->>GE: 8. Select Project & Location (global, us, or eu)<br/>& Draw from Shared 7-Day Pooled Quota
 ```
 
+> **💥 Watch Out! The Case-Sensitive Email Trap (`.lowerAscii()`)**
+> Corporate identity providers like Microsoft Entra ID and Okta frequently emit mixed-case email claims (`Priya.Patel@PulsePay.io`), whereas Gemini Enterprise license assignments match `google.subject` **case-sensitively**! Always append **`.lowerAscii()`** to your `google.subject` Workforce Identity Pool attribute mapping (shown in Step 2 below), or half your engineers will see *"No license found"* on Monday morning!
+
 #### Step-by-Step Admin & Developer Runbook for Okta and Microsoft Entra ID (`BYOID / WIF`)
 
 1. **Step 1 — Enable Required APIs in the Target Google Cloud Project**:
@@ -119,7 +140,7 @@ sequenceDiagram
    - *(Recommended)* Enable **SCIM provisioning** ([Configure SCIM in Microsoft Entra ID](https://docs.cloud.google.com/iam/docs/configure-scim-ms-entra) or [Configure SCIM in Okta](https://docs.cloud.google.com/iam/docs/configure-scim-okta)) to synchronize large group memberships and enable user/group autocomplete.
 3. **Step 3 — Bind the 3rd-Party IdP to Gemini Enterprise & Grant IAM Roles**:
    - Go to **Gemini Enterprise > Settings > Authentication** (`https://console.cloud.google.com/gemini-enterprise/apps`).
-   - Click **Add identity provider** for your target location (`global`, `us`, or `eu`) $\rightarrow$ select **3rd party identity** $\rightarrow$ select your **Workforce Identity Pool** $\rightarrow$ click **Save changes**.
+   - Click **Add identity provider** for your target location (`global`, `us`, or `eu`) → select **3rd party identity** → select your **Workforce Identity Pool** → click **Save changes**.
    - Grant the **`Gemini Enterprise User`** role (`roles/discoveryengine.agentspaceUser`) to your federated Okta/Entra group or users:
      ```bash
      # Grant access to an entire Okta or Microsoft Entra ID group:
@@ -129,7 +150,7 @@ sequenceDiagram
      ```
 4. **Step 4 — Developer Sign-In in Antigravity (`Interactive BYOID` & `Headless ADC`)**:
    - **Interactive Sign-In (`Antigravity 2.0`, `Antigravity CLI`, `VS Code / JetBrains`)**:
-     1. Open Antigravity and click **Sign in** $\rightarrow$ select **Business account**.
+     1. Open Antigravity and click **Sign in** → select **Business account**.
      2. Click **Advanced WIF Configuration**.
      3. Enter the **WIF Configuration String** provided by your administrator (`locations/global/workforcePools/{POOL_ID}/providers/{PROVIDER_ID}`).
      4. Authenticate through **Okta** or **Microsoft Entra ID** in the browser window.
@@ -163,15 +184,17 @@ Understanding how Gemini Enterprise funds Antigravity usage allows organizations
 
 ### 3.1 Weekly Pooled Quota Formula & Visual Architecture
 
+![Tokenomics and the Rolling 7-Day Shared Quota Pool](../assets/headfirst/08_tokenomics_quota_pool.jpg)
+
 Per the official [Gemini Enterprise Quotas and Overages](https://docs.cloud.google.com/gemini/enterprise/docs/quotas-and-overages), [AI Developer Tools Overview](https://docs.cloud.google.com/gemini/enterprise/docs/ai-developer-tools-overview), and [View Pooled Quota Usage](https://docs.cloud.google.com/gemini/enterprise/docs/feature-usage) documentation, AI developer tools credits (**Google Antigravity 2.0**, **Antigravity CLI**, **Antigravity for IDEs**, and **Android Studio**) are pooled across all users in the **same edition** within a **Google Cloud project and location** (`Global`, `US`, or `EU`) on a **rolling seven-day basis**:
 
 $$\text{Weekly Project Quota Pool} = \left(\frac{\text{Monthly Included Credit per Seat}}{4}\right) \times N_{\text{Licensed Seats (including Free-Trial Seats)}}$$
 
-| License Edition | License Price | Included AI Developer Tools Credit / Seat | Rolling 7-Day Pool Contribution / Seat | **Weekly Project Pool Formula ($N$ Seats)** | **Example: 100 Seats** | **Example: 1,000 Seats** |
+| License Edition | License Price | Included AI Developer Tools Credit / Seat | Rolling 7-Day Pool Contribution / Seat | **Weekly Project Pool Formula (`N` Seats)** | **Example: 100 Seats** | **Example: 1,000 Seats** |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Gemini Enterprise Standard** | $30 / user / mo | $10.00 / user / mo | $2.50 / user / 7 days | **$\$2.50 \times N$ / 7 days** | **$250 / week** | **$2,500 / week** ($10,000 / mo) |
-| **Gemini Enterprise Plus** | $45+ / user / mo | $15.00 / user / mo | $3.75 / user / 7 days | **$\$3.75 \times N$ / 7 days** | **$375 / week** | **$3,750 / week** ($15,000 / mo) |
-| **Gemini Enterprise Pay-as-you-go** | $0 seat fee *(Invoiced Billing)* | Unpooled (Pay for actual usage) | Unpooled | Billed at [Agent Platform API prices](https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing#cost-of-building-and-deploying-ai-models-in-agent-platform) | Pure consumption | Pure consumption |
+| **Gemini Enterprise Standard** | `$30 / user / mo` | `$10.00 / user / mo` | `$2.50 / user / 7 days` | **`$2.50 × N` / 7 days** | **`$250 / week`** | **`$2,500 / week`** (`$10,000 / mo`) |
+| **Gemini Enterprise Plus** | `$45+ / user / mo` | `$15.00 / user / mo` | `$3.75 / user / 7 days` | **`$3.75 × N` / 7 days** | **`$375 / week`** | **`$3,750 / week`** (`$15,000 / mo`) |
+| **Gemini Enterprise Pay-as-you-go** | `$0` seat fee *(Invoiced Billing)* | Unpooled (Pay for actual usage) | Unpooled | Billed at [Agent Platform API prices](https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing#cost-of-building-and-deploying-ai-models-in-agent-platform) | Pure consumption | Pure consumption |
 
 ```mermaid
 flowchart LR
@@ -201,16 +224,17 @@ flowchart LR
 > 4. **IAM Custom Role Strategy to Dedicate Pool Capacity to Engineers**: Per [AI Developer Tools Required Roles](https://docs.cloud.google.com/gemini/enterprise/docs/ai-developer-tools-overview#before-you-begin), users require `roles/discoveryengine.agentspaceUser` (`Gemini Enterprise User`) to access Antigravity, while `roles/discoveryengine.agentspaceAdmin` (`Gemini Enterprise Admin`) is required to configure settings and view **Gemini Enterprise > Usage & Spending** metrics (`monitoring.timeSeries.list` and `serviceconsumermanagement.quota.get`). Administrators can assign a **custom IAM role** that omits AI developer tools permissions to non-engineering seats in the same project—allowing those seats to use Assistant/Search while **contributing 100% of their weekly AI developer tool credits to the software engineering pool**.
 > 5. **Hard Stop (`Overages: OFF`) vs. Controlled Burst (`Overages: ON`)**: By default, usage stops when the 7-day shared pool reaches 100% (zero surprise cloud billing). On invoiced Cloud Billing accounts with paid subscriptions, administrators can enable **Overages** and set a **Monthly Spending Limit** to allow seamless continuation at Agent Platform API rates.
 
-### 3.2 Workload-to-Model Effort Routing Matrix
+### 3.2 Workload-to-Model Effort Routing Matrix (2026 Gemini 4 + 3.x Fleet)
 
-To maximize the weekly project quota pool across all active agents, enforce the following routing policy (configured in [`GEMINI.md`](../GEMINI.md)):
+To maximize the weekly project quota pool across all active agents—and exploit the **95% implicit cached-input discount**—enforce the following routing policy (configured in [`GEMINI.md`](../GEMINI.md)):
 
 | Workload Share | Task Category | Target Model | Thinking / Effort Level | Relative Quota Impact |
 | :--- | :--- | :--- | :--- | :--- |
-| **80% of Calls** | Subagent repo exploration, unit test generation, PR review, operational digests, SQL linting | `gemini-3.8-flash` / `gemini-3.7-flash` | `Low` or `Medium` | **1x (Baseline)** |
-| **10% of Calls** | High-frequency log classification, commit message drafting, PII tagging | `gemini-3.5-flash-lite` | `Minimal` | **0.25x (Ultra-Low)** |
-| **10% of Calls** | Complex legacy refactoring, distributed systems architecture, `/goal` autonomous loops | `gemini-3.1-pro-preview` / `antigravity-preview-05-2026` | `High` (or `/boost` when urgent) | **5x–8x (Reserved for High-Complexity)** |
-| **Local Zero-Egress** | Strict zero-egress data scrubbing & local AST pre-filtering | `gemma-4-26b-a4b-it` (`LiteRTAgentConfig`) | Local NPU / GPU | **$0.00 Cloud Quota** |
+| **75% of Calls** | Daily agentic coding, subagent repo exploration, `/run-workflow` workers, PR diffs, unit test generation | `gemini-4-hydrogen` *(or `gemini-3.8-flash`)* | `Medium` / `High` *(or `xhigh` for tricky math/logic)* | **1x Baseline** (`$1.50/1M` in, **`$0.075/1M` cached in**) |
+| **10% of Calls** | High-frequency log classification, cron health checks, commit message drafting, PII tagging | `gemini-3.5-flash-lite` | `Low` | **0.15x (Ultra-Low)** |
+| **10% of Calls** | Cross-module legacy refactoring, distributed systems design, `/swarm` complex architecture | `gemini-4-argon` *(or `Orchestrator (Argon)` on Pro/Ultra)* | `High` | **2.5x–3x** (`$2.00/$10.00` Nov intro; `$4.00/$20.00` Dec+) |
+| **5% of Calls** | Frontier CWE security audits, `/swarm` `@verifier`, `/boost` race conditions, formal verification | `gemini-4-carbon` *(or `claude-opus-5-5` partner)* | `High` | **3x–4x (Reserved for Frontier Verification)** |
+| **Local Zero-Egress** | Strict zero-egress data scrubbing & local AST pre-filtering | `gemma-4-26b-a4b-it` (`LiteRTAgentConfig`) | Local NPU / GPU | **`$0.00` Cloud Quota** |
 
 ### 3.3 Where to View Tokenomics & Pooled Quota Usage (User, Project & Org Levels) + Threshold Alerts
 
@@ -218,10 +242,10 @@ Grounded in [View Pooled Quota Usage](https://docs.cloud.google.com/gemini/enter
 
 | Visibility Level | Exact Surface / Console Path / Command | Required IAM Role / Permission | Metrics Displayed & Refresh Cadence |
 | :--- | :--- | :--- | :--- |
-| **1. User Level**<br>*(Developer IDE & CLI)* | • **Model Quotas Panel**: Type **`/usage`** (or alias **`/quota`**) in Antigravity CLI / 2.0.<br>• **Credits Panel & Statusline**: Type **`/credits`** (or inspect the bottom-right CLI statusline `AI Credits: <N>`).<br>• **Per-User Log Attribution**: Enable **Metadata logging** (or **Prompts and responses logging**) in **Gemini Enterprise > Settings > AI developer tools** and query Cloud Logging by `principalEmail` / `google.subject`. | • `roles/discoveryengine.agentspaceUser` (for IDE/CLI `/usage` and `/credits`)<br>• `roles/logging.viewer` (for Cloud Logging per-user queries) | • **Live on-demand refresh** when `/usage` is opened: per-model remaining requests/tokens (`Gemini 3.8 Flash`, `Gemini 3.1 Pro`).<br>• Current billing cycle credit summary and automatic statusline highlight when approaching low-quota threshold.<br>• Note: Set `"useG1Credits": false` in `/config` (`settings.json`) so enterprise users never fall back to personal credits. |
+| **1. User Level**<br>*(Developer IDE & CLI)* | • **Model Quotas Panel**: Type **`/usage`** (or alias **`/quota`**) in Antigravity CLI / 2.0.<br>• **Credits Panel & Statusline**: Type **`/credits`** (or inspect the bottom-right CLI statusline `AI Credits: <N>`).<br>• **Per-User Log Attribution**: Enable **Metadata logging** (or **Prompts and responses logging**) in **Gemini Enterprise > Settings > AI developer tools** and query Cloud Logging by `principalEmail` / `google.subject`. | • `roles/discoveryengine.agentspaceUser` (for IDE/CLI `/usage` and `/credits`)<br>• `roles/logging.viewer` (for Cloud Logging per-user queries) | • **Live on-demand refresh** when `/usage` is opened: per-model remaining requests/tokens (`Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Gemini 4 Carbon`, `Gemini 3.8 Flash`).<br>• Current billing cycle credit summary and automatic statusline highlight when approaching low-quota threshold.<br>• Note: Set `"useG1Credits": false` in `/config` (`settings.json`) so enterprise users never fall back to personal credits. |
 | **2A. Project Level — Pooled Quota %**<br>*(Usage & Spending)* | **Google Cloud Console**:<br>**Gemini Enterprise > Usage & Spending > Usage tab**<br>(`https://console.cloud.google.com/gemini-enterprise/usage-and-spending`)<br>1. Select license **Location** (`global`, `us`, `eu`).<br>2. Under **Usage details**, select **Subscription tier** (`Standard`, `Plus`, `Pay-as-you-go`). | `roles/discoveryengine.agentspaceAdmin`<br>*(Requires `monitoring.timeSeries.list`—without it usage shows `0`—and `serviceconsumermanagement.quota.get`—without it limit shows `Unknown`)* | • **Absolute dollar/query usage and percentage (%) consumed** of every pooled quota in the project:<br>  - Rolling 7-day **AI developer tools** credit pool (`$2.50 × seats` Standard / `$3.75 × seats` Plus)<br>  - Daily **Assistant** (`160–200/day × seats`) & **Deep Research** (`3–10/day × seats`) pools<br>  - Cross-edition **Storage + data indexing** pool |
 | **2B. Project Level — Tokenomics & Adoption**<br>*(Developer Tools Metrics)* | **Google Cloud Console**:<br>**Gemini Enterprise > Developer tools metrics**<br>(`https://console.cloud.google.com/gemini-enterprise`)<br>• Use the top-right **Time-range selector** (`15m`, `1h`, `1d`, `7d`, `14d`, or custom start/end) with **Auto-refresh** enabled. | `roles/discoveryengine.agentspaceAdmin` | • **Refreshes within 5–15 minutes of user activity**.<br>• **Active Users (Adoption)**: Hourly, Daily, Weekly, and Monthly (28-day) unique active users (averages + trend line charts).<br>• **Tools & API Calls (Tokenomics)**:<br>  - **Total Tokens**: Combined input + output tokens consumed across Antigravity surfaces.<br>  - **Daily Token Usage**: Daily token burn trend line.<br>  - **Daily API Calls**: Daily calls broken down by `error_type` (quota limits, auth errors, client errors).<br>• Click **More chart options (`⋮`) > Inspect related logs** to open a split-view of correlated Cloud Logging entries (`±5 min` window). |
-| **2C. Project Level — Overage & API Spend**<br>*(Billing Tab)* | **Google Cloud Console**:<br>**Gemini Enterprise > Usage & Spending > Billing tab**<br>(`https://console.cloud.google.com/gemini-enterprise/usage-and-spending`) | `roles/discoveryengine.agentspaceAdmin` (on project) **AND** `roles/billing.viewer` or `roles/billing.admin` (on Billing Account) | • **Gemini Enterprise costs (Last 30 days)** broken down by:<br>  1. `Gemini Enterprise app`<br>  2. `Gemini Enterprise Agent Platform`<br>  3. `AI developer tools (such as Antigravity)`<br>  4. `Total cost` + 30-day trend chart *(Note: includes background `Gemini Flash Lite` and `Gemini 3 Pro Image` calls)*. |
+| **2C. Project Level — Overage & API Spend**<br>*(Billing Tab)* | **Google Cloud Console**:<br>**Gemini Enterprise > Usage & Spending > Billing tab**<br>(`https://console.cloud.google.com/gemini-enterprise/usage-and-spending`) | `roles/discoveryengine.agentspaceAdmin` (on project) **AND** `roles/billing.viewer` or `roles/billing.admin` (on Billing Account) | • **Gemini Enterprise costs (Last 30 days)** broken down by:<br>  1. `Gemini Enterprise app`<br>  2. `Gemini Enterprise Agent Platform`<br>  3. `AI developer tools (such as Antigravity)`<br>  4. `Total cost` + 30-day trend chart *(Note: includes background `Gemini Flash Lite` and `Nano Banana 2` image calls)*. |
 | **3. Organization Level**<br>*(Cross-Project FinOps & Multi-BU Rollup)* | • **Cloud Billing Reports & BigQuery Billing Export**: In the **Billing tab**, click **View details in Billing** (`https://console.cloud.google.com/billing`) and group by **Project / Folder / Label**.<br>• **Multi-Project Cloud Monitoring Scope**: Add all Gemini Enterprise projects into a central **Cloud Monitoring Metrics Scope** (`Metrics Explorer`). | • `roles/billing.viewer` or `roles/billing.admin` (on Organization Billing Account)<br>• `roles/monitoring.viewer` (on scoping project) | • Organization-wide view of subscription fees, pooled quota utilization, and overage charges across all business units.<br>• Note: In Cloud Billing, Gemini Enterprise and Antigravity overage charges are billed under the **Vertex AI (`aiplatform.googleapis.com`)** service. |
 
 #### Configuring Threshold Alerts & Automated Spend Caps (3-Layer Alerting Setup)
@@ -234,7 +258,7 @@ To ensure engineering leaders and FinOps teams are notified before a project's r
      2. On any line chart (**Daily Token Usage**, **Daily API Calls**, or **Hourly Active Users**), click the **Create alert policy (`add_alert` bell icon)** in the chart toolbar.
      3. This opens the **Cloud Monitoring Alerting Workflow** pre-populated with the chart's underlying time-series query (or click **Explore data** to open **Metrics Explorer** and group/filter by `error_type="quota_exceeded"` or `serviceconsumermanagement.googleapis.com/quota`).
      4. Set your threshold triggers:
-        - **Warning Alert (`75%` of Weekly Pool / Token Run-Rate)**: Notify Engineering Managers & FinOps Slack/Google Chat channel to ensure 80% of subagent traffic is routed to `gemini-3.8-flash` (`Low`/`Medium`).
+        - **Warning Alert (`75%` of Weekly Pool / Token Run-Rate)**: Notify Engineering Managers & FinOps Slack/Google Chat channel to ensure 75%+ of subagent traffic is routed to `gemini-4-hydrogen` or `gemini-3.8-flash` (`Low`/`Medium`).
         - **Critical Alert (`90%` of Weekly Pool / Quota Error Spike)**: Notify Platform Admin via PagerDuty/Email/Pub/Sub to decide whether to enable temporary burst overages for critical release sprints.
 2. **Layer 2: Project Monthly Spend Limit & Cloud Billing Budget Alerts (`50% / 80% / 90% / 100%`)**:
    - **How to Configure** (per [Set a monthly spend limit](https://docs.cloud.google.com/gemini/enterprise/docs/configure-overages#set-spend-limit)):
@@ -244,7 +268,25 @@ To ensure engineering leaders and FinOps teams are notified before a project's r
      4. Configure alert thresholds at **50%, 80%, 90%, and 100%** of the monthly dollar cap.
      5. **Automatic Hard Stop**: When the project reaches **100%** of the configured monthly spend limit, **Gemini Enterprise automatically stops overage usage** within a few minutes so costs cannot run away.
 3. **Layer 3: Developer Workstation Low-Quota Statusline Alert**:
-   - Inside the **Antigravity CLI** and **Antigravity 2.0**, the right-hand statusline indicator automatically highlights a **Low Quota Alert** when remaining credits drop below the warning threshold, prompting developers to run `/usage` or switch routine tasks from `gemini-3.1-pro-preview` to `gemini-3.8-flash` or local `Gemma 4`.
+   - Inside the **Antigravity CLI** and **Antigravity 2.0**, the right-hand statusline indicator automatically highlights a **Low Quota Alert** when remaining credits drop below the warning threshold, prompting developers to run `/usage` or switch routine tasks from `gemini-4-carbon`/`gemini-4-argon` to `gemini-4-hydrogen`, `gemini-3.8-flash`, or local `Gemma 4`.
+
+<details>
+<summary><b>🕵️ Be the FinOps & Security Architect — 3 Real-World Governance Puzzles! (Click to Test Yourself)</b></summary>
+
+1. **Puzzle 1 (Quota Pool Math)**: PulsePay assigns **240 Gemini Enterprise Plus** licenses inside `gcp-proj-pulsepay-prod` (`us` location). `90` seats belong to Finance/PMO/Ops staff who only use conversational Search/Assistant, while `150` seats belong to Software & QA Engineers.
+   - *(a)* What is the project's **rolling 7-day AI developer tools shared pool** in USD?
+   - *(b)* How can Sam guarantee that `100%` of those `90` non-engineering seats' weekly Antigravity credits stay reserved for the `150` engineers?
+2. **Puzzle 2 (Console Troubleshooting)**: A FinOps analyst opens **Gemini Enterprise > Usage & Spending > Usage tab** and panics because current usage displays `0` and the quota limit displays `Unknown`. Which two IAM permissions are missing on their custom role?
+3. **Puzzle 3 (Clock Reset)**: PulsePay's very first Antigravity prompt in a brand-new project is sent on **Thursday at 11:15 AM PT**. Does the weekly AI developer tools pool reset on Sunday at midnight PT or Monday at 12:00 AM PT?
+
+---
+**Ground Truth Answers:**
+1. **(a)** `($15.00 / 4) × 240 seats = $3.75 × 240 =` **`$900.00 / rolling 7 days`** (`$3,600 / month` included developer tool capacity—averaging `$6.00/week` across the `150` active engineers!). *(Simulate any seat count right now with `python3 scripts/enterprise_license_and_agent_audit.py --seats 240`!)*
+   **(b)** Assign a **custom IAM role** to the `90` Finance/PMO/Ops principals in that project that grants Assistant/Search access while omitting AI developer tools permissions—their seats continue contributing `100%` of their `$3.75/wk` credit into the shared project pool!
+2. **Missing Permissions**: Without `monitoring.timeSeries.list`, current usage displays `0`; without `serviceconsumermanagement.quota.get`, the quota limit displays `Unknown` (both are included in `roles/discoveryengine.agentspaceAdmin`).
+3. **Neither!** Unlike daily Assistant quotas (midnight PT), the AI developer tools pool resets on a **rolling 7-day clock anchored to the first prompt**—so it resets the **following Thursday at 11:15 AM PT**!
+
+</details>
 
 ---
 
@@ -265,16 +307,16 @@ To ensure engineering leaders and FinOps teams are notified before a project's r
 - **Week 1**: Provision GCP Governance Projects by business unit or environment. Bind `roles/businessaicode.admin`, `developer`, and `viewer`.
 - **Week 2**: Enable OS Sandbox, Browser URL allowlists, and Admin-overridden MCP JSON in the Antigravity Admin Console.
 - **Week 3**: Commit [`AGENTS.md`](../AGENTS.md), [`GEMINI.md`](../GEMINI.md), [`_agents/hooks.json`](../_agents/hooks.json), and [`_agents/skills.json`](../_agents/skills.json) into core production Git repositories.
-- **Week 4**: Certify Tier 4 Architects as **AI Champions** to lead departmental enablement pods.
+- **Week 4**: Certify Tier 4 Architects as **AI Champions** to lead departmental enablement pods using the hands-on **[Agentic SDLC Labs (`S1 → S4`)](../labs/agentic-sdlc/README.md)**.
 
 ### Phase 2: Hands-On "Multi-Agent Builder" Enablement Waves (Days 31–60)
 Run structured 90-minute hands-on workshops across business and engineering teams:
-- **Minutes 0–15**: Verify Gemini Enterprise Project ID login (`/config`, `/model`) and review `AGENTS.md` workspace boundaries.
-- **Minutes 15–40 (Agent #1)**: Fork & customize a **Personal Role Copilot** from `starter-kits/tier1-citizen-markdown/` or `tier2-enterprise-plugin/`.
+- **Minutes 0–15**: Verify Gemini Enterprise Project ID login (`/config`, `/model`, `"useG1Credits": false`) and review [`AGENTS.md`](../AGENTS.md) workspace boundaries.
+- **Minutes 15–40 (Agent #1)**: Fork & customize a **Personal Role Copilot** from [`starter-kits/tier1-citizen-markdown/`](../starter-kits/tier1-citizen-markdown/) or [`tier2-enterprise-plugin/`](../starter-kits/tier2-enterprise-plugin/).
 - **Minutes 40–65 (Agent #2)**: Build a **Domain Specialist Agent** grounded in team schemas and test it with `/grill-me` and `/plan`.
-- **Minutes 65–90 (Agent #3)**: Configure an **Automated Reviewer Subagent** (`.agents/agents/*.md`) or recurring `/schedule` task, then run `/learn` to persist team lessons into `.agents/skills/`.
+- **Minutes 65–90 (Agent #3)**: Configure an **Automated Reviewer Subagent** (`.agents/agents/*.md`) or recurring `/schedule` task, then run `/learn` to persist team lessons into `_agents/skills/`.
 
 ### Phase 3: Autonomous Operations & Legacy Tool Consolidation (Days 61–90)
-- Deploy Tier 4 `sidecar.json` daemons across operations teams for automated incident triage.
-- Enforce `hooks-scripts/gate.py` in CI/CD and local repositories.
+- Deploy Tier 4 `sidecar.json` daemons across operations teams for automated incident triage ([`sentinel_sidecar.py`](../starter-kits/tier4-architect-fleet-and-sidecar/sidecars/incident-sla-sentinel/sentinel_sidecar.py)) and zero-laptop Issue-to-PR pipelines ([`issue_to_pr_pipeline.py`](../starter-kits/tier4-architect-fleet-and-sidecar/issue_to_pr_pipeline.py)).
+- Enforce [`hooks-scripts/gate.py`](../hooks-scripts/gate.py) in CI/CD and local repositories.
 - Consolidate fragmented point tools and unmanaged CLI subscriptions using side-by-side velocity and cost telemetry from **Developer Tool Metrics**.
